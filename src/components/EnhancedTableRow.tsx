@@ -15,9 +15,9 @@ import EnhancedTableDropdown from './EnhancedTableDropdown';
 
 interface EnhancedTableRowProps {
     task: Task,
-    selected: string[]
-    handleSelect: (event: React.MouseEvent<unknown>, id: string) => void,
-    setSelected: React.Dispatch<React.SetStateAction<string[]>>
+    selected: Task[]
+    handleSelect: (event: React.MouseEvent<unknown>, task: Task) => void,
+    setSelected: React.Dispatch<React.SetStateAction<Task[]>>
     setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
     setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -26,16 +26,16 @@ const EnhancedTableRow = ({ task, selected, handleSelect, setSelected, setOpenDe
     const [open, setOpen] = React.useState(false);
     let isItemSelected = false
     if (selected) {
-        isItemSelected = selected.includes(task.id);
+        isItemSelected = selected.includes(task);
     }
 
     const handleDelete = () => {
-        setSelected([task.id])
+        setSelected([task])
         setOpenDeleteModal(true)
     }
 
     const handleUpdate = () => {
-        setSelected([task.id])
+        setSelected([task])
         setOpenUpdateModal(true)
     }
 
@@ -53,7 +53,7 @@ const EnhancedTableRow = ({ task, selected, handleSelect, setSelected, setOpenDe
                         color="primary"
                         aria-checked={isItemSelected}
                         checked={isItemSelected}
-                        onClick={(event) => handleSelect(event, task.id)}
+                        onClick={(e) => handleSelect(e, task)}
                     />
                 </TableCell>
                 <TableCell align="left" component="th" scope="row">

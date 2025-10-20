@@ -43,7 +43,7 @@ const TasksTable = () => {
                                 key={task.id}
                                 task={task}
                                 selected={selected}
-                                handleSelect={() => handleSelect(task.id)}
+                                handleSelect={() => handleSelect(task)}
                                 setSelected={setSelected}
                                 setOpenDeleteModal={setOpenDeleteModal}
                                 setOpenUpdateModal={setOpenUpdateModal}

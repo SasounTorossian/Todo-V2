@@ -4,9 +4,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Box, Container } from "@mui/material";
 import Button from '@mui/material/Button';
 import * as React from "react";
+import type { Task } from "../types/task";
 
 interface ToolbarProps {
-    selected: string[]
+    selected: Task[]
     setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>
     setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
     setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>

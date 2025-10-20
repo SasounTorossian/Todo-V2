@@ -14,12 +14,12 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React, { useState } from 'react';
 import { useTasksContext } from '../../contexts/tasksContext';
-import type { UpdateTask } from '../../types/task';
+import type { Task, UpdateTask } from '../../types/task';
 import { PRIORITIES, STATUSES } from '../../types/task';
 
 interface UpdateModalProps {
     open: boolean
-    selected: string[]
+    selected: Task[]
     onClose: () => void
     onUpdate: () => void
 }
@@ -51,7 +51,7 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
     }
     // TODO: Add toast for failure or success
     const handleUpdateTasks = () => {
-        selected.forEach((id) => updateTask(id, task))
+        selected.forEach((currentTask) => updateTask(currentTask.id, task))
         onUpdate()
         onClose()
     }
@@ -163,6 +163,33 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
                             ))}
                         </TextField>
                     </Box>
+
+                    {/* TODO: Ability to add new task or edit existing ones. */}
+                    {selected.length == 1 &&
+                        <Box className='m-2 flex flex-col'>
+                            <Box className="flex gap-5">
+                                <TextField
+                                    className='basis-4/5'
+                                    variant="standard"
+                                    label="Sub Task (Optional)"
+                                    name="title"
+                                // value={subTask.title}
+                                // onChange={(e) => handleChangeSubTask(e)}
+                                />
+
+                                <Button
+                                    className='basis-1/5'
+                                    variant="contained"
+                                    color='warning'
+                                    // onClick={() => handleAddSubTask()}
+                                    endIcon={<Edit />}
+                                >
+                                    <Typography>
+                                        Edit
+                                    </Typography>
+                                </Button>
+                            </Box>
+                        </Box>}
 
                     <Box className='m-2'>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -6,12 +6,13 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import React from 'react';
 import { useTasksContext } from '../../contexts/tasksContext';
+import type { Task } from '../../types/task';
 
 
 
 interface DeleteModalProps {
     open: boolean
-    selected: string[]
+    selected: Task[]
     onClose: () => void
     onDelete: () => void
 }
@@ -21,7 +22,7 @@ const DeleteModal = ({ open, selected, onClose, onDelete }: DeleteModalProps) =>
 
     // TODO: Add toast for failure or success
     const handleDeleteTasks = () => {
-        selected.forEach((id) => deleteTask(id))
+        selected.forEach((task) => deleteTask(task.id))
         onDelete()
         onClose()
     }
@@ -57,12 +58,11 @@ const DeleteModal = ({ open, selected, onClose, onDelete }: DeleteModalProps) =>
                     </Box>
 
                     <Box className='ms-1'>
-                        {/* TODO: list titles */}
                         <Typography variant='body1'>
                             Are you sure you want to delete the following {selected.length} task{selected.length > 1 ? "s" : ""}:
                         </Typography>
-                        {selected.map((id) => (
-                            <Typography key={id}>{id}</Typography>
+                        {selected.map((task) => (
+                            <Typography key={task.id}>{task.title}</Typography>
                         ))}
                     </Box>
 
