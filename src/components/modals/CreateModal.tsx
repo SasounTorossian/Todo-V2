@@ -1,4 +1,4 @@
-import { Add } from '@mui/icons-material';
+import { Add, Delete } from '@mui/icons-material';
 import CircleIcon from '@mui/icons-material/Circle';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Typography } from '@mui/material';
@@ -31,6 +31,12 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
     const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask())
     const [submitted, setSubmitted] = useState(false)
 
+    const buttonStyle = {
+        maxHeight: "36px",
+        minWidth: 'auto',
+        padding: '6px',
+    }
+
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
         fieldName?: string
@@ -55,10 +61,17 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
 
     const handleChangeSubTask = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
-        console.log(name, value)
         setSubTask({ ...subTask, [name]: value })
     }
 
+    const handleChangeExistingSubTask = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, subTaskID: string) => {
+        const { value } = e.target
+        setTask({ ...task, sub_tasks: task.sub_tasks?.map((st) => st.id == subTaskID ? { ...st, title: value } : st) || [] })
+    }
+
+    const handleDeleteExistingSubTask = (subTaskID: string) => {
+        setTask({ ...task, sub_tasks: task.sub_tasks?.filter((st) => st.id != subTaskID) || [] })
+    }
 
     // TODO: Add toast for failure or success
     const handleAddTask = () => {
@@ -67,6 +80,7 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
             return
         }
 
+        console.log(task)
         addTask(task)
         setTask(createBaseTask())
         setSubmitted(false)
@@ -74,7 +88,7 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
     }
 
     const handleAddSubTask = () => {
-        if (!subTask) {
+        if (!subTask || !subTask.title) {
             return
         }
 
@@ -211,36 +225,50 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
                         </TextField>
                     </Box>
 
-                    <Box className='m-2 flex flex-col'>
-                        <Box className="flex gap-5">
+
+                    {task.sub_tasks && task.sub_tasks.map((subTask, index) => (
+                        <Box key={subTask.id} className=" m-2 flex items-end gap-5">
                             <TextField
-                                className='basis-4/5'
+                                className='grow'
                                 variant="standard"
-                                label="Sub Task (Optional)"
+                                label={"Sub Task - " + (index + 1)}
+                                value={subTask.title}
+                                name="title"
+                                onChange={(e) => handleChangeExistingSubTask(e, subTask.id)}
+                            />
+
+                            <Button
+                                variant="contained"
+                                color='error'
+                                sx={buttonStyle}
+                                onClick={() => handleDeleteExistingSubTask(subTask.id)}
+                            >
+                                <Delete />
+                            </Button>
+                        </Box>
+                    ))}
+
+                    <Box className='m-2 flex flex-col'>
+                        <Box className="flex items-end gap-5">
+                            <TextField
+                                className='grow'
+                                variant="standard"
+                                label="New Sub Task (Optional)"
                                 name="title"
                                 value={subTask.title}
                                 onChange={(e) => handleChangeSubTask(e)}
                             />
 
                             <Button
-                                className='basis-1/5'
+                                className=''
                                 variant="contained"
                                 onClick={() => handleAddSubTask()}
-                                endIcon={<Add />}
+                                sx={buttonStyle}
                             >
-                                <Typography>
-                                    Add
-                                </Typography>
+                                <Add />
                             </Button>
                         </Box>
 
-                        {task.sub_tasks && task.sub_tasks.map((subTask) => (
-                            <Box className="border-1 rounded-sm mt-4 p-2 border-neutral-700">
-                                <Typography>
-                                    {subTask.title}
-                                </Typography>
-                            </Box>
-                        ))}
                     </Box>
 
                     <Box className='m-2 mt-1'>

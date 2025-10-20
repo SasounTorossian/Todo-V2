@@ -1,4 +1,4 @@
-import { Edit } from '@mui/icons-material';
+import { Add, Delete, Edit } from '@mui/icons-material';
 import CircleIcon from '@mui/icons-material/Circle';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Typography } from '@mui/material';
@@ -12,9 +12,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import type { PickerValue } from '@mui/x-date-pickers/internals';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTasksContext } from '../../contexts/tasksContext';
-import type { Task, UpdateTask } from '../../types/task';
+import type { SubTask, Task, UpdateTask } from '../../types/task';
 import { PRIORITIES, STATUSES } from '../../types/task';
 
 interface UpdateModalProps {
@@ -25,10 +25,22 @@ interface UpdateModalProps {
 }
 
 // TODO: Logic needs to be move somewhere else! -> userForm() ?
-// TODO: Create Subtasks
 const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) => {
-    const { updateTask, createUpdateTask } = useTasksContext()
+    const { updateTask, createUpdateTask, createBaseSubTask } = useTasksContext()
     const [task, setTask] = useState<UpdateTask>(createUpdateTask())
+    const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask())
+
+    useEffect(() => {
+        if (selected.length == 1) {
+            setTask(selected[0])
+        }
+    }, [selected])
+
+    const buttonStyle = {
+        maxHeight: "36px",
+        minWidth: 'auto',
+        padding: '6px',
+    }
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
@@ -49,11 +61,36 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
             setTask({ ...task, [name]: value })
         }
     }
+
     // TODO: Add toast for failure or success
     const handleUpdateTasks = () => {
+        console.log(task)
         selected.forEach((currentTask) => updateTask(currentTask.id, task))
         onUpdate()
         onClose()
+    }
+
+    const handleChangeSubTask = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target
+        setSubTask({ ...subTask, [name]: value })
+    }
+
+    const handleChangeExistingSubTask = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, subTaskID: string) => {
+        const { value } = e.target
+        setTask({ ...task, sub_tasks: task.sub_tasks?.map((st) => st.id == subTaskID ? { ...st, title: value } : st) || [] })
+    }
+
+    const handleDeleteExistingSubTask = (subTaskID: string) => {
+        setTask({ ...task, sub_tasks: task.sub_tasks?.filter((st) => st.id != subTaskID) || [] })
+    }
+
+    const handleAddSubTask = () => {
+        if (!subTask || !subTask.title) {
+            return
+        }
+
+        setTask({ ...task, sub_tasks: [...(task.sub_tasks || []), subTask] })
+        setSubTask(createBaseSubTask())
     }
 
     const handleClose = () => {
@@ -164,32 +201,52 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
                         </TextField>
                     </Box>
 
-                    {/* TODO: Ability to add new task or edit existing ones. */}
                     {selected.length == 1 &&
                         <Box className='m-2 flex flex-col'>
-                            <Box className="flex gap-5">
+                            {task.sub_tasks && task.sub_tasks.map((subTask, index) => (
+                                <Box key={subTask.id} className="flex items-end gap-5 mb-2">
+                                    <TextField
+                                        className='grow'
+                                        variant="standard"
+                                        label={"Sub Task - " + (index + 1)}
+                                        name="title"
+                                        value={subTask.title}
+                                        onChange={(e) => handleChangeExistingSubTask(e, subTask.id)}
+                                    />
+
+                                    <Button
+                                        className=''
+                                        variant="contained"
+                                        color='error'
+                                        sx={buttonStyle}
+                                        onClick={() => handleDeleteExistingSubTask(subTask.id)}
+                                    >
+                                        <Delete />
+                                    </Button>
+                                </Box>
+                            ))}
+
+                            <Box className="flex items-end gap-5">
                                 <TextField
-                                    className='basis-4/5'
+                                    className='grow'
                                     variant="standard"
-                                    label="Sub Task (Optional)"
+                                    label="New Sub Task (Optional)"
                                     name="title"
-                                // value={subTask.title}
-                                // onChange={(e) => handleChangeSubTask(e)}
+                                    value={subTask.title}
+                                    onChange={(e) => handleChangeSubTask(e)}
                                 />
 
                                 <Button
-                                    className='basis-1/5'
                                     variant="contained"
-                                    color='warning'
-                                    // onClick={() => handleAddSubTask()}
-                                    endIcon={<Edit />}
+                                    color='primary'
+                                    sx={buttonStyle}
+                                    onClick={() => handleAddSubTask()}
                                 >
-                                    <Typography>
-                                        Edit
-                                    </Typography>
+                                    <Add fontSize='medium' />
                                 </Button>
                             </Box>
-                        </Box>}
+                        </Box>
+                    }
 
                     <Box className='m-2'>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>

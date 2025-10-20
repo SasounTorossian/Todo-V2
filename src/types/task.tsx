@@ -17,6 +17,7 @@ export type SubTask = {
 export type UpdateTask = {
     notes?: string
     status?: Status
+    sub_tasks?: SubTask[]
     priority?: Priority
     due_date?: Date
 }

@@ -155,6 +155,7 @@ const useTasks = () => {
                 notes: updatedTask.notes ?? task.notes,
                 status: updatedTask.status ?? task.status,
                 priority: updatedTask.priority ?? task.priority,
+                sub_tasks: updatedTask.sub_tasks ?? task.sub_tasks,
                 due_date: updatedTask.due_date ?? task.due_date,
             } : task)) || [])
     }
