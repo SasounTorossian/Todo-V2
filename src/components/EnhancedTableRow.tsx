@@ -22,7 +22,6 @@ interface EnhancedTableRowProps {
     setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// TODO: Sort out spacing between row elements
 const EnhancedTableRow = ({ task, selected, handleSelect, setSelected, setOpenDeleteModal, setOpenUpdateModal }: EnhancedTableRowProps) => {
     const [open, setOpen] = React.useState(false);
     let isItemSelected = false

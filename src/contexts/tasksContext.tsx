@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, type ReactNode } from "react";
-import type { Task, SubTask, UpdateTask } from "../types/task";
 import useTasks from "../hooks/useTasks";
+import type { SubTask, Task, UpdateTask } from "../types/task";
 
 interface TaskContextInterface {
     tasks: Task[];
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
     createBaseTask: () => Task;
     createUpdateTask: () => UpdateTask;
+    createBaseSubTask: () => SubTask;
     setDefaultTasks: () => void;
     addTask: (task: Task) => void;
     updateTask: (id: string, updatedTask: UpdateTask) => void;

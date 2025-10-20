@@ -30,6 +30,13 @@ const useTasks = () => {
         }
     }
 
+    const createBaseSubTask = (): SubTask => {
+        return {
+            id: crypto.randomUUID(),
+            title: "",
+        }
+    }
+
     const createDefaultTasks = (): Task[] => {
         return [
             {
@@ -42,22 +49,18 @@ const useTasks = () => {
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 1",
-                        created_at: new Date()
                     },
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 2",
-                        created_at: new Date()
                     },
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 3",
-                        created_at: new Date()
                     },
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 4",
-                        created_at: new Date()
                     },
 
                 ],
@@ -74,12 +77,10 @@ const useTasks = () => {
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 5",
-                        created_at: new Date()
                     },
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 6",
-                        created_at: new Date()
                     },
                 ],
                 created_at: new Date(),
@@ -95,12 +96,10 @@ const useTasks = () => {
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 7",
-                        created_at: new Date()
                     },
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 8",
-                        created_at: new Date()
                     },
                 ],
                 created_at: new Date(),
@@ -116,12 +115,10 @@ const useTasks = () => {
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 9",
-                        created_at: new Date()
                     },
                     {
                         id: crypto.randomUUID(),
                         title: "sub title 10",
-                        created_at: new Date()
                     },
                 ],
                 created_at: new Date(),
@@ -187,6 +184,7 @@ const useTasks = () => {
         setTasks,
         createBaseTask,
         createUpdateTask,
+        createBaseSubTask,
         setDefaultTasks,
         addTask,
         updateTask,

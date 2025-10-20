@@ -12,7 +12,6 @@ export type Task = {
 export type SubTask = {
     id: string
     title: string
-    created_at: Date
 }
 
 export type UpdateTask = {

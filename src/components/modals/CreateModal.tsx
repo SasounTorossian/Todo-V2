@@ -14,7 +14,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React, { useState } from 'react';
 import { useTasksContext } from '../../contexts/tasksContext';
-import type { Task } from '../../types/task';
+import type { SubTask, Task } from '../../types/task';
 import { PRIORITIES, STATUSES } from '../../types/task';
 
 
@@ -24,10 +24,12 @@ interface CreateModalProps {
 }
 
 // TODO: Logic needs to be move somewhere else! -> userForm() ?
-// TODO: Create Subtasks
+// TODO: Grey out button but allow clicking to highlight essential forms
+// TODO: Form on enter
 const CreateModal = ({ open, onClose }: CreateModalProps) => {
-    const { addTask, createBaseTask } = useTasksContext()
+    const { addTask, createBaseTask, createBaseSubTask } = useTasksContext()
     const [task, setTask] = useState<Task>(createBaseTask())
+    const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask())
     const [submitted, setSubmitted] = useState(false)
 
 
@@ -35,6 +37,7 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
         fieldName?: string
     ) => {
+        console.log(task)
         if (fieldName == "due_date") {
             const newDueDate = e as PickerValue
             console.log(newDueDate)
@@ -52,6 +55,13 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
         }
     }
 
+    const handleChangeSubTask = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target
+        console.log(name, value)
+        setSubTask({ ...subTask, [name]: value })
+    }
+
+
     // TODO: Add toast for failure or success
     const handleAddTask = () => {
         setSubmitted(true)
@@ -63,6 +73,15 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
         setTask(createBaseTask())
         setSubmitted(false)
         onClose()
+    }
+
+    const handleAddSubTask = () => {
+        if (!subTask) {
+            return
+        }
+
+        setTask({ ...task, sub_tasks: [...(task.sub_tasks || []), subTask] })
+        setSubTask(createBaseSubTask())
     }
 
     const handleClose = () => {
@@ -117,7 +136,7 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
                             multiline
                             rows={3}
                             className='w-full'
-                            label="Notes"
+                            label="Notes (Optional)"
                             name="notes"
                             value={task.notes}
                             onChange={(e) => handleChange(e)}
@@ -194,11 +213,43 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
                         </TextField>
                     </Box>
 
-                    <Box className='m-2'>
+                    <Box className='m-2 flex flex-col'>
+                        <Box className="flex gap-5">
+                            <TextField
+                                className='basis-4/5'
+                                variant="standard"
+                                label="Sub Task (Optional)"
+                                name="title"
+                                value={subTask.title}
+                                onChange={(e) => handleChangeSubTask(e)}
+                            />
+
+                            <Button
+                                className='basis-1/5'
+                                variant="contained"
+                                onClick={() => handleAddSubTask()}
+                                endIcon={<Add />}
+                            >
+                                <Typography>
+                                    Add
+                                </Typography>
+                            </Button>
+                        </Box>
+
+                        {task.sub_tasks && task.sub_tasks.map((subTask) => (
+                            <Box className="border-1 rounded-sm mt-4 p-2 border-neutral-700">
+                                <Typography>
+                                    {subTask.title}
+                                </Typography>
+                            </Box>
+                        ))}
+                    </Box>
+
+                    <Box className='m-2 mt-1'>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker', 'DatePicker']}>
                                 <DatePicker
-                                    label="Due Date"
+                                    label="Due Date (Optional)"
                                     onChange={(e) => handleChange(e, "due_date")}
                                 />
                             </DemoContainer>
@@ -219,7 +270,7 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
                     </Box>
                 </Box>
             </Modal>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 
