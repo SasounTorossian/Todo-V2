@@ -24,7 +24,6 @@ interface UpdateModalProps {
     onUpdate: () => void
 }
 
-
 // TODO: Logic needs to be move somewhere else! -> userForm() ?
 // TODO: Create Subtasks
 const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) => {
@@ -37,7 +36,7 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
     ) => {
         if (fieldName == "due_date") {
             const newDueDate = e as PickerValue
-            setTask({ ...task, ["due_date"]: newDueDate?.toDate() })
+            setTask({ ...task, ["due_date"]: newDueDate?.utc(true).toDate() })
             return
         }
 

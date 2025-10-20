@@ -17,7 +17,6 @@ import { useTasksContext } from '../../contexts/tasksContext';
 import type { SubTask, Task } from '../../types/task';
 import { PRIORITIES, STATUSES } from '../../types/task';
 
-
 interface CreateModalProps {
     open: boolean
     onClose: () => void
@@ -31,7 +30,6 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
     const [task, setTask] = useState<Task>(createBaseTask())
     const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask())
     const [submitted, setSubmitted] = useState(false)
-
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
