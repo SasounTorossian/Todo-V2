@@ -1,15 +1,12 @@
-import { Delete } from '@mui/icons-material';
 import CircleIcon from '@mui/icons-material/Circle';
-import EditIcon from '@mui/icons-material/Edit';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
 import type { Task } from '../types/task';
 import { formatTime } from '../utils/time';
+import EnhancedRowButtons from './EnhancedRowButtons';
 import EnhancedTableDropdown from './EnhancedTableDropdown';
 
 
@@ -22,6 +19,7 @@ interface EnhancedTableRowProps {
     setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+// TODO: There HAS to be a smarter way of creating the headers.
 const EnhancedTableRow = ({ task, selected, handleSelect, setSelected, setOpenDeleteModal, setOpenUpdateModal }: EnhancedTableRowProps) => {
     const [open, setOpen] = React.useState(false);
     let isItemSelected = false
@@ -96,30 +94,12 @@ const EnhancedTableRow = ({ task, selected, handleSelect, setSelected, setOpenDe
                     </Typography>
                 </TableCell>
                 <TableCell align="right">
-                    <IconButton
-                        color='primary'
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => setOpen(!open)}
-                    >
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
-                    <IconButton
-                        color='warning'
-                        aria-label="edit row"
-                        size="small"
-                        onClick={() => handleUpdate()}
-                    >
-                        <EditIcon fontSize="small" />
-                    </IconButton>
-                    <IconButton
-                        color='error'
-                        aria-label="delete row"
-                        size="small"
-                        onClick={() => handleDelete()}
-                    >
-                        <Delete fontSize="small" />
-                    </IconButton>
+                    <EnhancedRowButtons
+                        open={open}
+                        setOpen={setOpen}
+                        onUpdate={handleUpdate}
+                        onDelete={handleDelete}
+                    ></EnhancedRowButtons>
                 </TableCell>
                 <TableCell></TableCell>
             </TableRow>

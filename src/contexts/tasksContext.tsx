@@ -22,7 +22,7 @@ const TasksContext = createContext<TaskContextInterface | undefined>(undefined)
 export const TasksProvider = ({ children }: { children: ReactNode }) => {
     const taskHook = useTasks()
 
-    // NOTE: Only for testing
+    // FIXME: Only for testing
     useEffect(() => {
         taskHook.setDefaultTasks()
     }, [])
