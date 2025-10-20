@@ -37,7 +37,7 @@ export const STATUSES: Status[] = [
     {
         label: "Open",
         value: "open",
-        colour: "#16f34a"
+        colour: "#16a34a"
     },
     {
         label: "Closed",
