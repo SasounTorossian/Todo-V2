@@ -249,7 +249,7 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
                     }
 
                     <Box className='m-2'>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
                             <DemoContainer components={['DatePicker', 'DatePicker']}>
                                 <DatePicker
                                     label="Due Date"

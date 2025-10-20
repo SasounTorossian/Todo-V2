@@ -24,7 +24,6 @@ interface CreateModalProps {
 
 // TODO: Logic needs to be move somewhere else! -> userForm() ?
 // TODO: Grey out button but allow clicking to highlight essential forms
-// TODO: Form on enter
 const CreateModal = ({ open, onClose }: CreateModalProps) => {
     const { addTask, createBaseTask, createBaseSubTask } = useTasksContext()
     const [task, setTask] = useState<Task>(createBaseTask())
@@ -80,7 +79,6 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
             return
         }
 
-        console.log(task)
         addTask(task)
         setTask(createBaseTask())
         setSubmitted(false)
@@ -272,7 +270,7 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
                     </Box>
 
                     <Box className='m-2 mt-1'>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
                             <DemoContainer components={['DatePicker', 'DatePicker']}>
                                 <DatePicker
                                     label="Due Date (Optional)"

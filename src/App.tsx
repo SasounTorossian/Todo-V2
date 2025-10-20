@@ -2,7 +2,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { TasksProvider } from './contexts/tasksContext';
 import MainLayout from './layouts/MainLayout';
-import './utils/dayJs';
+import './utils/dayjs';
 
 
 const darkTheme = createTheme({
