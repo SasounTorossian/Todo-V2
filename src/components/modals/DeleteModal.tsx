@@ -60,7 +60,8 @@ const DeleteModal = ({
           <Box className="ms-1">
             <Typography variant="body1">
               Are you sure you want to delete the following {selected.length}{" "}
-              task{selected.length > 1 ? "s" : ""}:
+              task
+              {selected.length > 1 ? "s" : ""}:
             </Typography>
             {selected.map((task) => (
               <Typography key={task.id}>{task.title}</Typography>
