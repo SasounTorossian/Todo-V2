@@ -16,6 +16,7 @@ import React, { useEffect, useState } from 'react';
 import { useTasksContext } from '../../contexts/tasksContext';
 import type { SubTask, Task, UpdateTask } from '../../types/task';
 import { PRIORITIES, STATUSES } from '../../types/task';
+import dayjs from '../../utils/dayjs';
 
 interface UpdateModalProps {
     open: boolean
@@ -32,7 +33,15 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
 
     useEffect(() => {
         if (selected.length == 1) {
-            setTask(selected[0])
+            const updateTask: UpdateTask = {
+                notes: selected[0].notes,
+                status: selected[0].status,
+                priority: selected[0].priority,
+                sub_tasks: selected[0].sub_tasks,
+                due_date: selected[0].due_date,
+            }
+
+            setTask(updateTask)
         }
     }, [selected])
 
@@ -144,7 +153,7 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
                             className='w-full'
                             label="Status"
                             name="status"
-                            defaultValue=""
+                            value={selected.length == 1 ? task.status?.value : ""}
                             onChange={(e) => handleChange(e)}
                         >
                             {STATUSES.map((option) => (
@@ -176,7 +185,7 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
                             className='w-full'
                             label="Priority"
                             name="priority"
-                            defaultValue=""
+                            value={selected.length == 1 ? task.priority?.value : ""}
                             onChange={(e) => handleChange(e)}
                         >
                             {PRIORITIES.map((option) => (
@@ -252,6 +261,7 @@ const UpdateModal = ({ open, selected, onClose, onUpdate }: UpdateModalProps) =>
                         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
                             <DemoContainer components={['DatePicker', 'DatePicker']}>
                                 <DatePicker
+                                    value={task.due_date ? dayjs(task.due_date) : null}
                                     label="Due Date"
                                     onChange={(e) => handleChange(e, "due_date")}
                                 />
