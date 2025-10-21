@@ -6,7 +6,7 @@ const ONE_DAY = 60 * 60 * 24 * 1000
 
 const useTasks = () => {
     const [tasks, setTasks] = useState<Task[]>([])
-    let now = new Date();
+    const now = new Date();
 
     const createBaseTask = (): Task => {
         return {
