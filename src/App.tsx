@@ -1,11 +1,11 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { TasksProvider } from './contexts/tasksContext';
-import MainLayout from './layouts/MainLayout';
-import './utils/dayjs';
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { TasksProvider } from "./contexts/tasksContext";
+import MainLayout from "./layouts/MainLayout";
+import "./utils/dayjs";
 
 // NICE: Datetime Format Drowpdown - create content that the modals and rows take from to dynamically adjust datepicker format (Maybe combine with custom hook)
-// NICE: LKight/Dark Theme Mode Switch - Make as separate component that can be drag-and-dropped anywhere in the code base (Mainly toolbar). useContext() 
+// NICE: LKight/Dark Theme Mode Switch - Make as separate component that can be drag-and-dropped anywhere in the code base (Mainly toolbar). useContext()
 // NICE: Set Up Linter On Save - Read into it and figure it out.
 // NICE: Unit Tests
 // TODO: Set Up Lint On Git Commit - Been wanting to do this for a while now.
@@ -15,7 +15,7 @@ import './utils/dayjs';
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
@@ -40,7 +40,7 @@ const App = () => {
         <MainLayout />
       </TasksProvider>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
