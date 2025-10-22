@@ -4,21 +4,21 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Box, Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import * as React from "react";
-import type { Task } from "../types/task";
+import type { Task } from "../../types/task";
 
-interface ToolbarProps {
+interface EnhancedToolbarProps {
   selected: Task[];
   setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Toolbar = ({
+const EnhancedToolbar = ({
   selected,
   setOpenCreateModal,
   setOpenDeleteModal,
   setOpenUpdateModal,
-}: ToolbarProps) => {
+}: EnhancedToolbarProps) => {
   return (
     <React.Fragment>
       <Container className="flex justify-end gap-5 mt-5">
@@ -62,4 +62,4 @@ const Toolbar = ({
   );
 };
 
-export default Toolbar;
+export default EnhancedToolbar;

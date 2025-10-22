@@ -2,7 +2,7 @@ import { Box, Collapse, Table, TableBody, Typography } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import React from "react";
-import type { Task } from "../types/task";
+import type { Task } from "../../types/task";
 
 interface EnhancedTableDropdownProps {
   open: boolean;

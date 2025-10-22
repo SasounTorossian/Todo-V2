@@ -1,11 +1,11 @@
 import * as React from "react";
-import TasksTable from "../components/TasksTable";
+import EnhancedTable from "../components/table/EnhancedTable";
 
 const MainLayout = () => {
   return (
     <React.Fragment>
       {/* TODO: Graph Area */}
-      <TasksTable />
+      <EnhancedTable />
     </React.Fragment>
   );
 };

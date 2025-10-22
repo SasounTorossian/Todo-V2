@@ -4,8 +4,8 @@ import Checkbox from "@mui/material/Checkbox";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import React from "react";
-import type { Task } from "../types/task";
-import { formatTime } from "../utils/time";
+import type { Task } from "../../types/task";
+import { formatTime } from "../../utils/time";
 import EnhancedRowButtons from "./EnhancedRowButtons";
 import EnhancedTableDropdown from "./EnhancedTableDropdown";
 
@@ -18,7 +18,6 @@ interface EnhancedTableRowProps {
   setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// TODO: There HAS to be a smarter way of creating the headers.
 const EnhancedTableRow = ({
   task,
   selected,

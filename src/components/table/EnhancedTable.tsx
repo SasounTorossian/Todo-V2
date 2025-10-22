@@ -3,16 +3,16 @@ import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import * as React from "react";
 import { useState } from "react";
-import useTable from "../hooks/useTable";
-import { useTasksContext } from "../hooks/useTaskContext";
+import useTable from "../../hooks/useTable";
+import { useTasksContext } from "../../hooks/useTaskContext";
+import CreateModal from "../modals/CreateModal";
+import DeleteModal from "../modals/DeleteModal";
+import UpdateModal from "../modals/UpdateModal";
 import EnhancedTableHead from "./EnhancedTableHead";
 import EnhancedTableRow from "./EnhancedTableRow";
-import CreateModal from "./modals/CreateModal";
-import DeleteModal from "./modals/DeleteModal";
-import UpdateModal from "./modals/UpdateModal";
-import Toolbar from "./Toolbar";
+import EnhancedToolbar from "./EnhancedToolbar";
 
-const TasksTable = () => {
+const EnhancedTable = () => {
   const { tasks } = useTasksContext();
   const { selected, setSelected, handleSelectAll, handleSelect } = useTable();
   const [openCreateModal, setOpenCreateModal] = useState(false);
@@ -21,7 +21,7 @@ const TasksTable = () => {
 
   return (
     <React.Fragment>
-      <Toolbar
+      <EnhancedToolbar
         selected={selected}
         setOpenCreateModal={setOpenCreateModal}
         setOpenDeleteModal={setOpenDeleteModal}
@@ -74,4 +74,4 @@ const TasksTable = () => {
   );
 };
 
-export default TasksTable;
+export default EnhancedTable;
