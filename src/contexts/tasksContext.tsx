@@ -8,7 +8,7 @@ export const TasksProvider = ({ children }: { children: ReactNode }) => {
   // FIXME: Only for testing
   useEffect(() => {
     taskHook.setDefaultTasks();
-  });
+  }, []);
 
   return (
     <TasksContext.Provider value={taskHook}>{children}</TasksContext.Provider>
