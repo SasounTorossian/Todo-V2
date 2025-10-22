@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import React from "react";
-import { useTasksContext } from "../../contexts/tasksContext";
+import { useTasksContext } from "../../hooks/useTaskContext";
 import type { Task } from "../../types/task";
 
 interface DeleteModalProps {

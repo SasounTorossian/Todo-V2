@@ -13,7 +13,7 @@ import type { PickerValue } from "@mui/x-date-pickers/internals";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React, { useState } from "react";
-import { useTasksContext } from "../../contexts/tasksContext";
+import { useTasksContext } from "../../hooks/useTaskContext";
 import type { SubTask, Task } from "../../types/task";
 import { PRIORITIES, STATUSES } from "../../types/task";
 
