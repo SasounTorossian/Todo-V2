@@ -1,3 +1,5 @@
+import { COLOURS } from "../constants/colours";
+
 export type Task = {
   id: string;
   title: string;
@@ -38,17 +40,17 @@ export const STATUSES: Status[] = [
   {
     label: "Open",
     value: "open",
-    colour: "#16a34a",
+    colour: COLOURS.green,
   },
   {
     label: "Closed",
     value: "closed",
-    colour: "#3b82f6",
+    colour: COLOURS.blue,
   },
   {
     label: "Blocked",
     value: "blocked",
-    colour: "#a78bfa",
+    colour: COLOURS.purple,
   },
 ];
 
@@ -56,21 +58,21 @@ export const PRIORITIES: Priority[] = [
   {
     label: "Low",
     value: "low",
-    colour: "#16a34a",
+    colour: COLOURS.green,
   },
   {
     label: "Medium",
     value: "medium",
-    colour: "#eab308",
+    colour: COLOURS.yellow,
   },
   {
     label: "High",
     value: "high",
-    colour: "#d97706",
+    colour: COLOURS.orange,
   },
   {
     label: "Critical",
     value: "critical",
-    colour: "#dc2626",
+    colour: COLOURS.red,
   },
 ];

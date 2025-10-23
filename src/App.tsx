@@ -10,6 +10,7 @@ import "./utils/dayjs";
 // TODO: Toasts
 // TODO: Graphs
 // TODO: Storage
+// TODO: Styling: Use Paper/rounded-gray-boxes for containg graphs and table
 
 const darkTheme = createTheme({
   palette: {
