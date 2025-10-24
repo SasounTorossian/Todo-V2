@@ -47,6 +47,8 @@ const UpdateModal = ({
       };
 
       setTask(updateTask);
+    } else {
+      setTask(createUpdateTask());
     }
   }, [selected]);
 
