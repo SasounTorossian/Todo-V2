@@ -37,6 +37,8 @@ const UpdateModal = ({
   const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask());
 
   useEffect(() => {
+    setTask(createUpdateTask());
+
     if (selected.length == 1) {
       const updateTask: UpdateTask = {
         notes: selected[0].notes,
@@ -45,10 +47,7 @@ const UpdateModal = ({
         sub_tasks: selected[0].sub_tasks,
         due_date: selected[0].due_date,
       };
-
       setTask(updateTask);
-    } else {
-      setTask(createUpdateTask());
     }
   }, [selected]);
 
