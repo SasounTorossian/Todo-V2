@@ -25,7 +25,7 @@ const EnhancedToolbar = ({
   return (
     <React.Fragment>
       <Container className="flex justify-between gap-5 mt-5">
-        <Box className="mt-1">
+        <Box>
           <FormControlLabel
             control={
               <Switch
@@ -47,9 +47,7 @@ const EnhancedToolbar = ({
               endIcon={<EditIcon />}
               onClick={() => setOpenUpdateModal(true)}
             >
-              <Box className="mt-1">
-                Update {selected.length} Task{selected.length > 1 ? "s" : ""}
-              </Box>
+              Update {selected.length} Task{selected.length > 1 ? "s" : ""}
             </Button>
           )}
 
@@ -61,9 +59,7 @@ const EnhancedToolbar = ({
               endIcon={<Delete />}
               onClick={() => setOpenDeleteModal(true)}
             >
-              <Box className="mt-1">
-                Delete {selected.length} Task{selected.length > 1 ? "s" : ""}
-              </Box>
+              Delete {selected.length} Task{selected.length > 1 ? "s" : ""}
             </Button>
           )}
 
@@ -74,7 +70,7 @@ const EnhancedToolbar = ({
             endIcon={<Add />}
             onClick={() => setOpenCreateModal(true)}
           >
-            <Box className="mt-1">Add New Task</Box>
+            Add New Task
           </Button>
         </Box>
       </Container>
