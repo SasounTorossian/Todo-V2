@@ -10,7 +10,7 @@ interface ChartContainerProps {
 
 const ChartContainer = ({ tasks }: ChartContainerProps) => {
   return (
-    <Container className="flex py-15">
+    <Container className="flex p-5 gap-3">
       <PriorityChart tasks={tasks} />
       <StatusChart tasks={tasks} />
       <DueDateChart tasks={tasks} />

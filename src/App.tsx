@@ -7,7 +7,7 @@ import "./utils/dayjs";
 // NICE: Unit Tests
 // NICE: Add Sorting To Table
 // TODO: Storage
-// TODO: Styling: Use Paper/rounded-gray-boxes for containg graphs and table
+// TODO: Styling: Delete button list, etc.
 
 const App = () => {
   return (

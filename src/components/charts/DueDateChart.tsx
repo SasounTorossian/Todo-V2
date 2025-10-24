@@ -1,3 +1,4 @@
+import { Paper, Typography } from "@mui/material";
 import { BarChart } from "@mui/x-charts";
 import { MONTHS_ABBR } from "../../constants/months";
 import type { Task } from "../../types/task";
@@ -49,11 +50,11 @@ const DueDateChart = ({ tasks }: DueDateChartProps) => {
   sortByMonth(monthData);
 
   const settings = {
-    yAxis: [
-      {
-        label: "number of tasks",
-      },
-    ],
+    // yAxis: [
+    //   {
+    //     label: "number of tasks",
+    //   },
+    // ],
     margin: { right: 5 },
     height: 300,
     hideLegend: true,
@@ -61,12 +62,15 @@ const DueDateChart = ({ tasks }: DueDateChartProps) => {
   };
 
   return (
-    <BarChart
-      dataset={monthData}
-      xAxis={[{ scaleType: "band", dataKey: "month" }]}
-      series={[{ dataKey: "value", label: "number" }]}
-      {...settings}
-    />
+    <Paper className="flex flex-col grow p-5">
+      <Typography variant="h6">Due Date Breakdown</Typography>
+      <BarChart
+        dataset={monthData}
+        xAxis={[{ scaleType: "band", dataKey: "month" }]}
+        series={[{ dataKey: "value", label: "number" }]}
+        {...settings}
+      />
+    </Paper>
   );
 };
 

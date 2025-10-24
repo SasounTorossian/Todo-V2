@@ -1,3 +1,4 @@
+import { Paper, Typography } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
 import type { Task } from "../../types/task";
 import { PRIORITIES } from "../../types/task";
@@ -31,18 +32,21 @@ const PriorityChart = ({ tasks }: PriorityChartProps) => {
   };
 
   return (
-    <PieChart
-      series={[
-        {
-          innerRadius: 0,
-          outerRadius: 100,
-          data: priorityData,
-          arcLabel: (item) => `${item.value}`,
-          arcLabelRadius: "60%",
-        },
-      ]}
-      {...settings}
-    />
+    <Paper className="flex flex-col grow p-5">
+      <Typography variant="h6">Priority Breakdown</Typography>
+      <PieChart
+        series={[
+          {
+            innerRadius: 0,
+            outerRadius: 100,
+            data: priorityData,
+            arcLabel: (item) => `${item.value}`,
+            arcLabelRadius: "60%",
+          },
+        ]}
+        {...settings}
+      />
+    </Paper>
   );
 };
 

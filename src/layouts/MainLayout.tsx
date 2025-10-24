@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Container, Paper } from "@mui/material";
 import ChartContainer from "../components/charts/ChartContainer";
 import EnhancedTable from "../components/table/EnhancedTable";
 import { useTasksContext } from "../hooks/useTaskContext";
@@ -7,10 +7,12 @@ const MainLayout = () => {
   const { tasks } = useTasksContext();
 
   return (
-    <React.Fragment>
+    <Container className="flex flex-col">
       <ChartContainer tasks={tasks} />
-      <EnhancedTable />
-    </React.Fragment>
+      <Paper className="p-5 pt-0 mx-5">
+        <EnhancedTable />
+      </Paper>
+    </Container>
   );
 };
 
