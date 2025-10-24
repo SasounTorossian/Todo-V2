@@ -11,19 +11,18 @@ import type { Task } from "../../types/task";
 interface DeleteModalProps {
   open: boolean;
   selected: Task[];
-  onClose: () => void;
   onDelete: () => void;
+  onClose: () => void;
 }
 
 const DeleteModal = ({
   open,
   selected,
-  onClose,
   onDelete,
+  onClose,
 }: DeleteModalProps) => {
   const { deleteTask } = useTasksContext();
 
-  // TODO: Add toast for failure or success
   const handleDeleteTasks = () => {
     selected.forEach((task) => deleteTask(task.id));
     onDelete();

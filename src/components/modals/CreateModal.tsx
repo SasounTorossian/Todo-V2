@@ -19,12 +19,13 @@ import { PRIORITIES, STATUSES } from "../../types/task";
 
 interface CreateModalProps {
   open: boolean;
+  onAdd: () => void;
   onClose: () => void;
 }
 
 // TODO: Logic needs to be move somewhere else! -> userForm() ?
 // TODO: Grey out button but allow clicking to highlight essential forms
-const CreateModal = ({ open, onClose }: CreateModalProps) => {
+const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   const { addTask, createBaseTask, createBaseSubTask } = useTasksContext();
   const [task, setTask] = useState<Task>(createBaseTask());
   const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask());
@@ -96,7 +97,6 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
     });
   };
 
-  // TODO: Add toast for failure or success
   const handleAddTask = () => {
     setSubmitted(true);
     if (
@@ -110,6 +110,7 @@ const CreateModal = ({ open, onClose }: CreateModalProps) => {
     addTask(task);
     setTask(createBaseTask());
     setSubmitted(false);
+    onAdd();
     onClose();
   };
 

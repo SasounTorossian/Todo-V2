@@ -3,11 +3,14 @@ import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import * as React from "react";
 import { useState } from "react";
+import useSnackbar from "../../hooks/useSnackbar";
 import useTable from "../../hooks/useTable";
 import { useTasksContext } from "../../hooks/useTaskContext";
+import { successMessage } from "../../utils/message";
 import CreateModal from "../modals/CreateModal";
 import DeleteModal from "../modals/DeleteModal";
 import UpdateModal from "../modals/UpdateModal";
+import EnhancedSnackbar from "../snackbar/EnhancedSnackbar";
 import EnhancedTableHead from "./EnhancedTableHead";
 import EnhancedTableRow from "./EnhancedTableRow";
 import EnhancedToolbar from "./EnhancedToolbar";
@@ -15,9 +18,25 @@ import EnhancedToolbar from "./EnhancedToolbar";
 const EnhancedTable = () => {
   const { tasks } = useTasksContext();
   const { selected, setSelected, handleSelectAll, handleSelect } = useTable();
+  const { open, message, showSnackbar, closeSnackbar } = useSnackbar();
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+
+  const onAdd = () => {
+    showSnackbar(successMessage("created", selected));
+    setSelected([]);
+  };
+
+  const onDelete = () => {
+    showSnackbar(successMessage("deleted", selected));
+    setSelected([]);
+  };
+
+  const onUpdate = () => {
+    showSnackbar(successMessage("updated", selected));
+    setSelected([]);
+  };
 
   return (
     <React.Fragment>
@@ -54,22 +73,25 @@ const EnhancedTable = () => {
 
       <CreateModal
         open={openCreateModal}
+        onAdd={() => onAdd()}
         onClose={() => setOpenCreateModal(false)}
       />
 
       <DeleteModal
         open={openDeleteModal}
         selected={selected}
-        onDelete={() => setSelected([])}
+        onDelete={() => onDelete()}
         onClose={() => setOpenDeleteModal(false)}
       />
 
       <UpdateModal
         open={openUpdateModal}
         selected={selected}
-        onUpdate={() => setSelected([])}
+        onUpdate={() => onUpdate()}
         onClose={() => setOpenUpdateModal(false)}
       ></UpdateModal>
+
+      <EnhancedSnackbar open={open} message={message} onClose={closeSnackbar} />
     </React.Fragment>
   );
 };

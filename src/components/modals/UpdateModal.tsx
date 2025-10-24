@@ -21,16 +21,16 @@ import dayjs from "../../utils/dayjs";
 interface UpdateModalProps {
   open: boolean;
   selected: Task[];
-  onClose: () => void;
   onUpdate: () => void;
+  onClose: () => void;
 }
 
 // TODO: Logic needs to be move somewhere else! -> userForm() ?
 const UpdateModal = ({
   open,
   selected,
-  onClose,
   onUpdate,
+  onClose,
 }: UpdateModalProps) => {
   const { updateTask, createUpdateTask, createBaseSubTask } = useTasksContext();
   const [task, setTask] = useState<UpdateTask>(createUpdateTask());
@@ -86,7 +86,6 @@ const UpdateModal = ({
     }
   };
 
-  // TODO: Add toast for failure or success
   const handleUpdateTasks = () => {
     console.log(task);
     selected.forEach((currentTask) => updateTask(currentTask.id, task));

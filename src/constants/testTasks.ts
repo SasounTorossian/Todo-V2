@@ -146,8 +146,6 @@ export const testTasks = [
   {
     id: crypto.randomUUID(),
     title: "Test Title 10",
-    notes:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt sagittis mi, eu posuere leo pellentesque eget. Sed sagittis risus imperdiet, viverra metus sed, pharetra eros. Phasellus aliquam vitae purus vel bibendum. Aliquam vitae sapien justo. Integer nec risus tempus, sodales nisl ut, sodales felis. Mauris interdum, quam in egestas dictum, elit eros convallis mauris, accumsan accumsan tortor metus eu velit. Nam congue lorem orci, ac interdum augue finibus lacinia. Nullam volutpat vestibulum ante, ac finibus diam efficitur nec. Phasellus sit amet erat vitae tellus sodales pretium. Proin et orci eu nunc tempor mollis id eu elit. Cras porttitor ex eget enim placerat, consequat auctor nisi molestie. Proin id viverra nunc, luctus blandit risus. Morbi sed felis eget ligula aliquet convallis. Vestibulum bibendum sapien in tincidunt ultricies. ",
     status: STATUSES[2],
     priority: PRIORITIES[3],
     sub_tasks: [],
