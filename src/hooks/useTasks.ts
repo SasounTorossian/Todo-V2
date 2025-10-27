@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { testTasks } from "../constants/testTasks";
 import type {
   Priority,
@@ -7,9 +7,11 @@ import type {
   Task,
   UpdateTask,
 } from "../types/task";
+import useLocalStorage from "./useLocalStorage";
 
 const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [localStorage, setLocalStorage] = useLocalStorage("tasks", []);
   const now = new Date();
 
   const createBaseTask = (): Task => {
@@ -131,8 +133,14 @@ const useTasks = () => {
   };
 
   const setDefaultTasks = () => {
-    setTasks(createDefaultTasks());
+    return localStorage.length == 0
+      ? setTasks(createDefaultTasks())
+      : setTasks(localStorage);
   };
+
+  useEffect(() => {
+    setLocalStorage(tasks);
+  }, [tasks]);
 
   return {
     tasks,
