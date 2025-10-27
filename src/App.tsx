@@ -6,7 +6,6 @@ import "./utils/dayjs";
 // NICE: Datetime Format Drowpdown - create content that the modals and rows take from to dynamically adjust datepicker format (Maybe combine with custom hook)
 // NICE: Unit Tests
 // NICE: Add Sorting To Table
-// TODO: Storage
 // TODO: Styling: Delete button list, etc.
 
 const App = () => {

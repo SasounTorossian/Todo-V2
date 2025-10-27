@@ -25,7 +25,6 @@ interface UpdateModalProps {
   onClose: () => void;
 }
 
-// TODO: Logic needs to be move somewhere else! -> userForm() ?
 const UpdateModal = ({
   open,
   selected,
@@ -136,7 +135,6 @@ const UpdateModal = ({
     onClose();
   };
 
-  // TODO: Add form validation
   return (
     <React.Fragment>
       <Modal

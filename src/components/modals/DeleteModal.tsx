@@ -33,7 +33,6 @@ const DeleteModal = ({
     onClose();
   };
 
-  // TODO: Add form validation
   return (
     <React.Fragment>
       <Modal

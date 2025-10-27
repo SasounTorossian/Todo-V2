@@ -23,7 +23,6 @@ interface CreateModalProps {
   onClose: () => void;
 }
 
-// TODO: Logic needs to be move somewhere else! -> userForm() ?
 // TODO: Grey out button but allow clicking to highlight essential forms
 const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   const { addTask, createBaseTask, createBaseSubTask } = useTasksContext();
@@ -129,7 +128,6 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
     onClose();
   };
 
-  // TODO: Add form validation
   return (
     <React.Fragment>
       <Modal
