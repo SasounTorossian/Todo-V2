@@ -179,7 +179,8 @@ const UpdateModal = ({
               className="w-full"
               label="Status"
               name="status"
-              value={selected.length == 1 ? task.status?.value : ""}
+              defaultValue={selected.length == 1 ? task.status?.value : ""}
+              value={task.status?.value ?? ""}
               onChange={(e) => handleChange(e)}
             >
               {STATUSES.map((option) => (
@@ -206,7 +207,8 @@ const UpdateModal = ({
               className="w-full"
               label="Priority"
               name="priority"
-              value={selected.length == 1 ? task.priority?.value : ""}
+              defaultValue={selected.length == 1 ? task.priority?.value : ""}
+              value={task.priority?.value ?? ""}
               onChange={(e) => handleChange(e)}
             >
               {PRIORITIES.map((option) => (
