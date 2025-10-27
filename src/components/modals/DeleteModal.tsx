@@ -1,6 +1,6 @@
 import { Delete } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, List, ListItem, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -61,9 +61,13 @@ const DeleteModal = ({
               task
               {selected.length > 1 ? "s" : ""}:
             </Typography>
-            {selected.map((task) => (
-              <Typography key={task.id}>{task.title}</Typography>
-            ))}
+            <List sx={{ listStyleType: "disc", listStylePosition: "inside" }}>
+              {selected.map((task) => (
+                <ListItem sx={{ display: "list-item" }} key={task.id}>
+                  {task.title}
+                </ListItem>
+              ))}
+            </List>
           </Box>
 
           <Box className="m-2 my-3 flex">

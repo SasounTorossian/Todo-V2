@@ -36,19 +36,20 @@ const UpdateModal = ({
   const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask());
 
   useEffect(() => {
-    setTask(createUpdateTask());
+    if (!open) return;
 
     if (selected.length == 1) {
-      const updateTask: UpdateTask = {
+      setTask({
         notes: selected[0].notes,
         status: selected[0].status,
         priority: selected[0].priority,
         sub_tasks: selected[0].sub_tasks,
         due_date: selected[0].due_date,
-      };
-      setTask(updateTask);
+      });
+    } else {
+      setTask(createUpdateTask());
     }
-  }, [selected]);
+  }, [open, selected]);
 
   const buttonStyle = {
     maxHeight: "36px",
