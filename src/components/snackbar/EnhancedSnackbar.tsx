@@ -1,9 +1,10 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, Snackbar } from "@mui/material";
+import { IconButton, Snackbar, SnackbarContent } from "@mui/material";
 import type {
   SnackbarCloseReason,
   SnackbarOrigin,
 } from "@mui/material/Snackbar";
+import { COLOURS } from "../../constants/colours";
 
 interface EnhancedSnackbarProps {
   open: boolean;
@@ -45,10 +46,20 @@ const EnhancedSnackbar = ({
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
-      message={message}
       action={snackbarAction}
       anchorOrigin={snackOrigin}
-    />
+    >
+      <SnackbarContent
+        sx={{
+          backgroundColor: COLOURS.green,
+          color: COLOURS.white,
+          fontSize: "1rem",
+          fontWeight: "500",
+          lineHeight: "1.5rem",
+        }}
+        message={message}
+      />
+    </Snackbar>
   );
 };
 

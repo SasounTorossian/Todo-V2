@@ -24,17 +24,17 @@ const EnhancedTable = () => {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
   const onAdd = () => {
-    showSnackbar(successMessage("created", selected));
+    showSnackbar(successMessage("Created", selected));
     setSelected([]);
   };
 
   const onDelete = () => {
-    showSnackbar(successMessage("deleted", selected));
+    showSnackbar(successMessage("Deleted", selected));
     setSelected([]);
   };
 
   const onUpdate = () => {
-    showSnackbar(successMessage("updated", selected));
+    showSnackbar(successMessage("Updated", selected));
     setSelected([]);
   };
 

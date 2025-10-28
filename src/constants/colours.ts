@@ -1,8 +1,11 @@
+import colors from "tailwindcss/colors";
+
 export const COLOURS = {
-  green: "#16a34a",
-  yellow: "#eab308",
-  orange: "#d97706",
-  red: "#dc2626",
-  blue: "#3b82f6",
-  purple: "#a78bfa",
+  green: colors.green[600], // '#16a34a'
+  yellow: colors.amber[500], // '#f59e0b'
+  orange: colors.orange[600], // '#f97316'
+  red: colors.red[600], // '#dc2626'
+  blue: colors.blue[500], // '#3b82f6'
+  purple: colors.violet[400], // '#a78bfa'
+  white: colors.slate[100], // '#f1f5f9'
 };
