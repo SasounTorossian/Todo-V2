@@ -96,7 +96,6 @@ const EnhancedTableRow = ({
             onDelete={handleDelete}
           ></EnhancedRowButtons>
         </TableCell>
-        <TableCell></TableCell>
       </TableRow>
 
       <EnhancedTableDropdown open={open} task={task} />

@@ -13,9 +13,9 @@ const EnhancedTableDropdown = ({ open, task }: EnhancedTableDropdownProps) => {
   return (
     <React.Fragment>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box className="flex gap-10">
+            <Box className="flex gap-5">
               <Box className="m-5 basis-2/3">
                 <Typography variant="h6" gutterBottom>
                   Sub Tasks

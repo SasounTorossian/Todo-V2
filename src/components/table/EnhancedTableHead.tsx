@@ -78,7 +78,6 @@ const EnhancedTableHead = ({
             <Typography variant="h6">{header.label}</Typography>
           </TableCell>
         ))}
-        <TableCell></TableCell>
       </TableRow>
     </TableHead>
   );

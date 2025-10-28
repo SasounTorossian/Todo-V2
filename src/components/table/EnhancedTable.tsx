@@ -48,7 +48,7 @@ const EnhancedTable = () => {
       />
 
       <TableContainer className="px-5">
-        <Table aria-label="collapsible table">
+        <Table className="table-fixed w-100" aria-label="collapsible table">
           <EnhancedTableHead
             numSelected={selected.length}
             handleSelectAll={(e) => handleSelectAll(tasks, e)}
