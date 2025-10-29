@@ -28,7 +28,6 @@ const StatusChart = ({ tasks }: StatusChartProps) => {
     width: 200,
     height: 200,
     hideLegend: false,
-    loading: tasks.length == 0,
   };
 
   return (

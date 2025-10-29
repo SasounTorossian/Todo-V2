@@ -50,15 +50,9 @@ const DueDateChart = ({ tasks }: DueDateChartProps) => {
   sortByMonth(monthData);
 
   const settings = {
-    // yAxis: [
-    //   {
-    //     label: "number of tasks",
-    //   },
-    // ],
     margin: { right: 5 },
     height: 300,
     hideLegend: true,
-    loading: tasks.length == 0,
   };
 
   return (
