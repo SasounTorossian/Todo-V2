@@ -1,5 +1,5 @@
 import { Paper, Typography } from "@mui/material";
-import { PieChart } from "@mui/x-charts/PieChart";
+import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import type { Task } from "../../types/task";
 import { PRIORITIES } from "../../types/task";
 
@@ -43,6 +43,11 @@ const PriorityChart = ({ tasks }: PriorityChartProps) => {
             arcLabelRadius: "60%",
           },
         ]}
+        sx={{
+          [`& .${pieArcLabelClasses.root}`]: {
+            fill: "black",
+          },
+        }}
         {...settings}
       />
     </Paper>
