@@ -1,14 +1,17 @@
+import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useState } from "react";
-import type { Task } from "../types/task";
 
-const useLocalStorage = (key: string, defaultValue: Task[]) => {
+const useLocalStorage = <T>(
+  key: string,
+  defaultValue: T,
+): [T, Dispatch<SetStateAction<T>>] => {
   const parseDate = (key: string, value: string) => {
     return key === "created_at" || key === "due_date"
       ? new Date(Date.parse(value))
       : value;
   };
 
-  const [value, setValue] = useState(() => {
+  const [value, setValue] = useState<T>(() => {
     try {
       const stored = localStorage.getItem(key);
       return stored ? JSON.parse(stored, parseDate) : defaultValue;

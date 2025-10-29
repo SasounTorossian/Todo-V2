@@ -11,7 +11,7 @@ import useLocalStorage from "./useLocalStorage";
 
 const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [localStorage, setLocalStorage] = useLocalStorage("tasks", []);
+  const [localStorage, setLocalStorage] = useLocalStorage<Task[]>("tasks", []);
   const now = new Date();
 
   const createBaseTask = (): Task => {

@@ -1,8 +1,12 @@
 import { createTheme } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import useLocalStorage from "./useLocalStorage";
 
 const useTheme = () => {
-  const [mode, setMode] = useState<"light" | "dark">("dark");
+  const [localStorage, setLocalStorage] = useLocalStorage("theme", "");
+  const [mode, setMode] = useState<"light" | "dark">(() => {
+    return localStorage ? (localStorage as "light" | "dark") : "dark";
+  });
 
   const theme = useMemo(
     () =>
@@ -30,6 +34,10 @@ const useTheme = () => {
   const switchMode = () => {
     return mode == "light" ? setMode("dark") : setMode("light");
   };
+
+  useEffect(() => {
+    setLocalStorage(mode);
+  }, [mode]);
 
   return {
     mode,
