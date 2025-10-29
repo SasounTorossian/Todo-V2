@@ -3,7 +3,8 @@ import { Box, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import React from "react";
+import type { Dispatch, MouseEvent, SetStateAction } from "react";
+import { useState } from "react";
 import type { Task } from "../../types/task";
 import { formatTime } from "../../utils/time";
 import EnhancedRowButtons from "./EnhancedRowButtons";
@@ -12,10 +13,10 @@ import EnhancedTableDropdown from "./EnhancedTableDropdown";
 interface EnhancedTableRowProps {
   task: Task;
   selected: Task[];
-  handleSelect: (event: React.MouseEvent<unknown>, task: Task) => void;
-  setSelected: React.Dispatch<React.SetStateAction<Task[]>>;
-  setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSelect: (event: MouseEvent<unknown>, task: Task) => void;
+  setSelected: Dispatch<SetStateAction<Task[]>>;
+  setOpenDeleteModal: Dispatch<SetStateAction<boolean>>;
+  setOpenUpdateModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const EnhancedTableRow = ({
@@ -26,7 +27,7 @@ const EnhancedTableRow = ({
   setOpenDeleteModal,
   setOpenUpdateModal,
 }: EnhancedTableRowProps) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   let isItemSelected = false;
   if (selected) {
     isItemSelected = selected.includes(task);
@@ -43,7 +44,7 @@ const EnhancedTableRow = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       <TableRow
         key={task.id}
         selected={isItemSelected}
@@ -99,7 +100,7 @@ const EnhancedTableRow = ({
       </TableRow>
 
       <EnhancedTableDropdown open={open} task={task} />
-    </React.Fragment>
+    </>
   );
 };
 

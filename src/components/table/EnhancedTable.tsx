@@ -1,7 +1,6 @@
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
-import * as React from "react";
 import { useState } from "react";
 import useSnackbar from "../../hooks/useSnackbar";
 import useTable from "../../hooks/useTable";
@@ -39,7 +38,7 @@ const EnhancedTable = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <EnhancedToolbar
         selected={selected}
         setOpenCreateModal={setOpenCreateModal}
@@ -92,7 +91,7 @@ const EnhancedTable = () => {
       ></UpdateModal>
 
       <EnhancedSnackbar open={open} message={message} onClose={closeSnackbar} />
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,9 +1,10 @@
+import type { Dispatch, SetStateAction } from "react";
 import { createContext, useContext } from "react";
 import type { SubTask, Task, UpdateTask } from "../types/task";
 
 interface TaskContextInterface {
   tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  setTasks: Dispatch<SetStateAction<Task[]>>;
   createBaseTask: () => Task;
   createUpdateTask: () => UpdateTask;
   createBaseSubTask: () => SubTask;

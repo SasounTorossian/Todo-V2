@@ -12,7 +12,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import type { PickerValue } from "@mui/x-date-pickers/internals";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import React, { useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { useTasksContext } from "../../hooks/useTaskContext";
 import type { SubTask, Task, UpdateTask } from "../../types/task";
 import { PRIORITIES, STATUSES } from "../../types/task";
@@ -58,7 +59,7 @@ const UpdateModal = ({
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
     fieldName?: string,
   ) => {
     if (fieldName == "due_date") {
@@ -68,7 +69,7 @@ const UpdateModal = ({
     }
 
     const { name, value } = (
-      e as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      e as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ).target;
     if (name == "priority") {
       setTask({
@@ -95,14 +96,14 @@ const UpdateModal = ({
   };
 
   const handleChangeSubTask = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setSubTask({ ...subTask, [name]: value });
   };
 
   const handleChangeExistingSubTask = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     subTaskID: string,
   ) => {
     const { value } = e.target;
@@ -137,7 +138,7 @@ const UpdateModal = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       <Modal
         open={open}
         onClose={() => handleClose()}
@@ -307,7 +308,7 @@ const UpdateModal = ({
           </Box>
         </Box>
       </Modal>
-    </React.Fragment>
+    </>
   );
 };
 

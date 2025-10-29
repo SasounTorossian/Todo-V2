@@ -1,14 +1,13 @@
 import { Delete } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { IconButton } from "@mui/material";
-import React from "react";
-
-import EditIcon from "@mui/icons-material/Edit";
+import type { Dispatch, SetStateAction } from "react";
 
 interface EnhancedRowButtonsProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   onUpdate: () => void;
   onDelete: () => void;
 }
@@ -20,7 +19,7 @@ const EnhancedRowButtons = ({
   onDelete,
 }: EnhancedRowButtonsProps) => {
   return (
-    <React.Fragment>
+    <>
       <IconButton
         color="primary"
         aria-label="expand row"
@@ -45,7 +44,7 @@ const EnhancedRowButtons = ({
       >
         <Delete fontSize="small" />
       </IconButton>
-    </React.Fragment>
+    </>
   );
 };
 

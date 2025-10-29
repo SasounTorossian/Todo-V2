@@ -1,3 +1,4 @@
+import type { ChangeEvent } from "react";
 import { useState } from "react";
 import type { Task } from "../types/task";
 
@@ -6,7 +7,7 @@ const useTable = () => {
 
   const handleSelectAll = (
     tasks: Task[],
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     if (event.target.checked) {
       setSelected(tasks);

@@ -12,7 +12,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import type { PickerValue } from "@mui/x-date-pickers/internals";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import React, { useState } from "react";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { useTasksContext } from "../../hooks/useTaskContext";
 import type { SubTask, Task } from "../../types/task";
 import { PRIORITIES, STATUSES } from "../../types/task";
@@ -23,7 +24,6 @@ interface CreateModalProps {
   onClose: () => void;
 }
 
-// TODO: Grey out button but allow clicking to highlight essential forms
 const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   const { addTask, createBaseTask, createBaseSubTask } = useTasksContext();
   const [task, setTask] = useState<Task>(createBaseTask());
@@ -37,7 +37,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
     fieldName?: string,
   ) => {
     console.log(task);
@@ -49,7 +49,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
     }
 
     const { name, value } = (
-      e as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      e as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ).target;
     if (name == "priority") {
       setTask({
@@ -69,14 +69,14 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   };
 
   const handleChangeSubTask = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setSubTask({ ...subTask, [name]: value });
   };
 
   const handleChangeExistingSubTask = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     subTaskID: string,
   ) => {
     const { value } = e.target;
@@ -129,7 +129,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Modal
         open={open}
         onClose={() => handleClose()}
@@ -314,7 +314,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
           </Box>
         </Box>
       </Modal>
-    </React.Fragment>
+    </>
   );
 };
 

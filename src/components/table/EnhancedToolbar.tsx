@@ -3,15 +3,15 @@ import Add from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Container, FormControlLabel, Switch } from "@mui/material";
 import Button from "@mui/material/Button";
-import * as React from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { useThemeContext } from "../../hooks/useThemeContext";
 import type { Task } from "../../types/task";
 
 interface EnhancedToolbarProps {
   selected: Task[];
-  setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenCreateModal: Dispatch<SetStateAction<boolean>>;
+  setOpenDeleteModal: Dispatch<SetStateAction<boolean>>;
+  setOpenUpdateModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const EnhancedToolbar = ({
@@ -23,7 +23,7 @@ const EnhancedToolbar = ({
   const { mode, switchMode } = useThemeContext();
 
   return (
-    <React.Fragment>
+    <>
       <Container className="flex justify-between gap-5 mt-5">
         <Box>
           <FormControlLabel
@@ -74,7 +74,7 @@ const EnhancedToolbar = ({
           </Button>
         </Box>
       </Container>
-    </React.Fragment>
+    </>
   );
 };
 

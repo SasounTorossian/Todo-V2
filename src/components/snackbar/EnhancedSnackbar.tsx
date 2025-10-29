@@ -4,6 +4,7 @@ import type {
   SnackbarCloseReason,
   SnackbarOrigin,
 } from "@mui/material/Snackbar";
+import type { SyntheticEvent } from "react";
 import { COLOURS } from "../../constants/colours";
 
 interface EnhancedSnackbarProps {
@@ -23,7 +24,7 @@ const EnhancedSnackbar = ({
   };
 
   const handleClose = (
-    _event?: React.SyntheticEvent | Event,
+    _event?: SyntheticEvent | Event,
     reason?: SnackbarCloseReason,
   ) => {
     if (reason === "clickaway") return;

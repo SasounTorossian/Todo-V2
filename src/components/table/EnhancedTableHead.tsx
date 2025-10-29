@@ -2,7 +2,7 @@ import { Checkbox, Typography } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import React from "react";
+import type { ChangeEvent } from "react";
 
 interface Header {
   id: string;
@@ -48,7 +48,7 @@ const headers: readonly Header[] = [
 
 interface EnhancedTableHeadProps {
   numSelected: number;
-  handleSelectAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectAll: (event: ChangeEvent<HTMLInputElement>) => void;
   rowCount: number;
 }
 
