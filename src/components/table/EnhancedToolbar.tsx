@@ -24,7 +24,7 @@ const EnhancedToolbar = ({
 
   return (
     <>
-      <Container className="flex justify-between gap-5 mt-5">
+      <Container maxWidth={false} className="flex justify-between gap-5 mt-5">
         <Box>
           <FormControlLabel
             control={

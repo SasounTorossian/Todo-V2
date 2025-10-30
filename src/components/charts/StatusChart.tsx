@@ -31,7 +31,7 @@ const StatusChart = ({ tasks }: StatusChartProps) => {
   };
 
   return (
-    <Paper className="flex flex-col grow p-5">
+    <Paper className="flex flex-col basis-1/3 p-5">
       <Typography variant="h6">Status Breakdown</Typography>
       <PieChart
         series={[

@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
@@ -38,7 +39,7 @@ const EnhancedTable = () => {
   };
 
   return (
-    <>
+    <Paper className="p-5 pt-0 mx-5">
       <EnhancedToolbar
         selected={selected}
         setOpenCreateModal={setOpenCreateModal}
@@ -91,7 +92,7 @@ const EnhancedTable = () => {
       ></UpdateModal>
 
       <EnhancedSnackbar open={open} message={message} onClose={closeSnackbar} />
-    </>
+    </Paper>
   );
 };
 
