@@ -7,7 +7,7 @@ const MainLayout = () => {
   const { tasks } = useTasksContext();
 
   return (
-    <Container maxWidth="xl" className="flex flex-col">
+    <Container maxWidth="xl" className="flex flex-col h-screen overflow-hidden">
       <ChartContainer tasks={tasks} />
       <EnhancedTable />
     </Container>

@@ -4,7 +4,6 @@ import MainLayout from "./layouts/MainLayout";
 import "./utils/dayjs";
 
 // TODO: Clean up fully
-// TODO: Fix full width
 
 const App = () => {
   return (

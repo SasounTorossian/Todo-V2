@@ -50,15 +50,15 @@ const DueDateChart = ({ tasks }: DueDateChartProps) => {
   sortByMonth(monthData);
 
   const settings = {
-    margin: { right: 5 },
-    height: 300,
+    height: 250,
     hideLegend: true,
   };
 
   return (
-    <Paper className="flex flex-col basis-1/3 p-5">
+    <Paper className="flex flex-col grow py-3 px-3">
       <Typography variant="h6">Due Date Breakdown</Typography>
       <BarChart
+        className="me-10"
         dataset={monthData}
         xAxis={[{ scaleType: "band", dataKey: "month" }]}
         series={[{ dataKey: "value", label: "number" }]}

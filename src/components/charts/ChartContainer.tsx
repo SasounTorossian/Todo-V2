@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import type { Task } from "../../types/task";
 import DueDateChart from "./DueDateChart";
 import PriorityChart from "./PriorityChart";
@@ -10,11 +10,11 @@ interface ChartContainerProps {
 
 const ChartContainer = ({ tasks }: ChartContainerProps) => {
   return (
-    <Container maxWidth="xl" className="flex p-3 gap-3">
+    <Box className="flex py-3 gap-3">
       <PriorityChart tasks={tasks} />
       <StatusChart tasks={tasks} />
       <DueDateChart tasks={tasks} />
-    </Container>
+    </Box>
   );
 };
 

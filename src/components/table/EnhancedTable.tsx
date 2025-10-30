@@ -39,7 +39,7 @@ const EnhancedTable = () => {
   };
 
   return (
-    <Paper className="p-5 pt-0 mx-5">
+    <Paper className="flex flex-col px-5 pt-0 pb-10 overflow-hidden">
       <EnhancedToolbar
         selected={selected}
         setOpenCreateModal={setOpenCreateModal}
@@ -47,8 +47,12 @@ const EnhancedTable = () => {
         setOpenUpdateModal={setOpenUpdateModal}
       />
 
-      <TableContainer className="px-5">
-        <Table className="table-fixed w-100" aria-label="collapsible table">
+      <TableContainer className="overflow-auto">
+        <Table
+          stickyHeader
+          className="table-fixed w-100"
+          aria-label="collapsible table"
+        >
           <EnhancedTableHead
             numSelected={selected.length}
             handleSelectAll={(e) => handleSelectAll(tasks, e)}

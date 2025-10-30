@@ -24,14 +24,13 @@ const PriorityChart = ({ tasks }: PriorityChartProps) => {
   }));
 
   const settings = {
-    margin: { right: 5 },
-    width: 200,
+    width: 230,
     height: 200,
     hideLegend: false,
   };
 
   return (
-    <Paper className="flex flex-col basis-1/3 p-5">
+    <Paper className="flex flex-col grow py-3 px-6">
       <Typography variant="h6">Priority Breakdown</Typography>
       <PieChart
         series={[

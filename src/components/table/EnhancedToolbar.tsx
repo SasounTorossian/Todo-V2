@@ -1,7 +1,7 @@
 import { Delete } from "@mui/icons-material";
 import Add from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Container, FormControlLabel, Switch } from "@mui/material";
+import { Box, FormControlLabel, Switch } from "@mui/material";
 import Button from "@mui/material/Button";
 import type { Dispatch, SetStateAction } from "react";
 import { useThemeContext } from "../../hooks/useThemeContext";
@@ -24,7 +24,7 @@ const EnhancedToolbar = ({
 
   return (
     <>
-      <Container maxWidth={false} className="flex justify-between gap-5 mt-5">
+      <Box className="flex justify-between gap-5 my-5">
         <Box>
           <FormControlLabel
             control={
@@ -73,7 +73,7 @@ const EnhancedToolbar = ({
             Add New Task
           </Button>
         </Box>
-      </Container>
+      </Box>
     </>
   );
 };
