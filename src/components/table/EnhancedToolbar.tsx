@@ -39,33 +39,33 @@ const EnhancedToolbar = ({
           />
         </Box>
         <Box className="flex justify-end gap-5">
-          {selected.length > 0 && (
+          {selected.length > 1 && (
             <Button
               className="w-45"
-              variant="outlined"
+              variant={mode === "dark" ? "outlined" : "contained"}
               color="warning"
               endIcon={<EditIcon />}
               onClick={() => setOpenUpdateModal(true)}
             >
-              Update {selected.length} Task{selected.length > 1 ? "s" : ""}
+              Update {selected.length} Tasks
             </Button>
           )}
 
-          {selected.length > 0 && (
+          {selected.length > 1 && (
             <Button
               className="w-45"
-              variant="outlined"
+              variant={mode === "dark" ? "outlined" : "contained"}
               color="error"
               endIcon={<Delete />}
               onClick={() => setOpenDeleteModal(true)}
             >
-              Delete {selected.length} Task{selected.length > 1 ? "s" : ""}
+              Delete {selected.length} Tasks
             </Button>
           )}
 
           <Button
             className="w-45"
-            variant="outlined"
+            variant={mode === "dark" ? "outlined" : "contained"}
             color="primary"
             endIcon={<Add />}
             onClick={() => setOpenCreateModal(true)}
