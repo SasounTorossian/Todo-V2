@@ -1,10 +1,8 @@
 import { Add, Delete, Edit } from "@mui/icons-material";
-import CircleIcon from "@mui/icons-material/Circle";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -18,6 +16,7 @@ import { useTasksContext } from "../../hooks/useTaskContext";
 import type { SubTask, Task, UpdateTask } from "../../types/task";
 import { PRIORITIES, STATUSES } from "../../types/task";
 import dayjs from "../../utils/dayjs";
+import Dropdown from "../fields/Dropdown";
 
 interface UpdateModalProps {
   open: boolean;
@@ -173,59 +172,25 @@ const UpdateModal = ({
           </Box>
 
           <Box className="m-2">
-            <TextField
-              variant="standard"
-              select
-              className="w-full"
-              label="Status"
-              name="status"
+            <Dropdown
+              label={"Status"}
+              name={"status"}
+              options={STATUSES}
               defaultValue={selected.length == 1 ? task.status?.value : ""}
               value={task.status?.value ?? ""}
               onChange={(e) => handleChange(e)}
-            >
-              {STATUSES.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  <Box className="flex">
-                    <Box className="ms-2">
-                      <CircleIcon
-                        className="mb-1"
-                        fontSize="small"
-                        style={{ color: option.colour }}
-                      />
-                    </Box>
-                    <Box className="ms-2">{option.label}</Box>
-                  </Box>
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </Box>
 
           <Box className="m-2">
-            <TextField
-              variant="standard"
-              select
-              className="w-full"
-              label="Priority"
-              name="priority"
+            <Dropdown
+              label={"Priority"}
+              name={"priority"}
+              options={PRIORITIES}
               defaultValue={selected.length == 1 ? task.priority?.value : ""}
               value={task.priority?.value ?? ""}
               onChange={(e) => handleChange(e)}
-            >
-              {PRIORITIES.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  <Box className="flex">
-                    <Box className="ms-2">
-                      <CircleIcon
-                        className="mb-1"
-                        fontSize="small"
-                        style={{ color: option.colour }}
-                      />
-                    </Box>
-                    <Box className="ms-2">{option.label}</Box>
-                  </Box>
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </Box>
 
           {selected.length == 1 && (

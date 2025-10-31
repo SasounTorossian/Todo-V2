@@ -1,10 +1,8 @@
 import { Add, Delete } from "@mui/icons-material";
-import CircleIcon from "@mui/icons-material/Circle";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -17,6 +15,7 @@ import { useState } from "react";
 import { useTasksContext } from "../../hooks/useTaskContext";
 import type { SubTask, Task } from "../../types/task";
 import { PRIORITIES, STATUSES } from "../../types/task";
+import Dropdown from "../fields/Dropdown";
 
 interface CreateModalProps {
   open: boolean;
@@ -28,7 +27,6 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   const { addTask, createBaseTask, createBaseSubTask } = useTasksContext();
   const [task, setTask] = useState<Task>(createBaseTask());
   const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask());
-  const [submitted, setSubmitted] = useState(false);
 
   const buttonStyle = {
     maxHeight: "36px",
@@ -97,18 +95,8 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   };
 
   const handleAddTask = () => {
-    setSubmitted(true);
-    if (
-      !task.title ||
-      Object.keys(task.status).length == 0 ||
-      Object.keys(task.priority).length == 0
-    ) {
-      return;
-    }
-
     addTask(task);
     setTask(createBaseTask());
-    setSubmitted(false);
     onAdd();
     onClose();
   };
@@ -124,7 +112,6 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
 
   const handleClose = () => {
     setTask(createBaseTask());
-    setSubmitted(false);
     onClose();
   };
 
@@ -157,8 +144,6 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
               name="title"
               value={task.title}
               onChange={(e) => handleChange(e)}
-              error={submitted && !task.title}
-              helperText={submitted && !task.title && "Title field is required"}
             />
           </Box>
 
@@ -176,71 +161,25 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
           </Box>
 
           <Box className="m-2">
-            <TextField
-              required
-              variant="standard"
-              select
-              className="w-full"
-              label="Status"
-              name="status"
+            <Dropdown
+              label={"Status"}
+              name={"status"}
+              required={true}
+              options={STATUSES}
               defaultValue={""}
               onChange={(e) => handleChange(e)}
-              error={submitted && Object.keys(task.status).length == 0}
-              helperText={
-                submitted &&
-                Object.keys(task.status).length == 0 &&
-                "Status field is required"
-              }
-            >
-              {STATUSES.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  <Box className="flex">
-                    <Box className="ms-2">
-                      <CircleIcon
-                        className="mb-1"
-                        fontSize="small"
-                        style={{ color: option.colour }}
-                      />
-                    </Box>
-                    <Box className="ms-2">{option.label}</Box>
-                  </Box>
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </Box>
 
           <Box className="m-2">
-            <TextField
-              required
-              variant="standard"
-              select
-              className="w-full"
-              label="Priority"
-              name="priority"
+            <Dropdown
+              label={"Priority"}
+              name={"priority"}
+              required={true}
+              options={PRIORITIES}
               defaultValue={""}
               onChange={(e) => handleChange(e)}
-              error={submitted && Object.keys(task.priority).length == 0}
-              helperText={
-                submitted &&
-                Object.keys(task.priority).length == 0 &&
-                "Priority field is required"
-              }
-            >
-              {PRIORITIES.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  <Box className="flex">
-                    <Box className="ms-2">
-                      <CircleIcon
-                        className="mb-1"
-                        fontSize="small"
-                        style={{ color: option.colour }}
-                      />
-                    </Box>
-                    <Box className="ms-2">{option.label}</Box>
-                  </Box>
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </Box>
 
           {task.sub_tasks &&
@@ -278,6 +217,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
               />
 
               <Button
+                disabled={!subTask.title}
                 className=""
                 variant="contained"
                 onClick={() => handleAddSubTask()}
@@ -305,6 +245,11 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
 
           <Box className="m-2 my-3 flex">
             <Button
+              disabled={
+                !task.title ||
+                Object.keys(task.status).length == 0 ||
+                Object.keys(task.priority).length == 0
+              }
               className="grow"
               variant="contained"
               onClick={() => handleAddTask()}

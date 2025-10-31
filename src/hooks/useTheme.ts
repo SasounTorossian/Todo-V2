@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
+import { COLOURS } from "../constants/colours";
 import useLocalStorage from "./useLocalStorage";
 
 const useTheme = () => {
@@ -26,6 +27,15 @@ const useTheme = () => {
         shape: { borderRadius: 8 },
         typography: {
           fontFamily: "Inter, Roboto, sans-serif",
+        },
+        components: {
+          MuiFormLabel: {
+            styleOverrides: {
+              asterisk: {
+                color: COLOURS.red,
+              },
+            },
+          },
         },
       }),
     [mode],
