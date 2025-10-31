@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { testTasks } from "../constants/testTasks";
-import type {
-  Priority,
-  Status,
-  SubTask,
-  Task,
-  UpdateTask,
-} from "../types/task";
+import type { SubTask, Task } from "../types/task";
 import useLocalStorage from "./useLocalStorage";
 
 const useTasks = () => {
@@ -19,19 +13,10 @@ const useTasks = () => {
       id: crypto.randomUUID(),
       title: "",
       notes: "",
-      status: {} as Status,
-      priority: {} as Priority,
-      sub_tasks: [],
-      created_at: now,
-      due_date: undefined,
-    };
-  };
-
-  const createUpdateTask = (): UpdateTask => {
-    return {
-      notes: undefined,
       status: undefined,
       priority: undefined,
+      sub_tasks: [],
+      created_at: now,
       due_date: undefined,
     };
   };
@@ -60,7 +45,7 @@ const useTasks = () => {
     setTasks((tasks) => tasks.filter((task) => task.id != id));
   };
 
-  const updateTask = (id: string, updatedTask: UpdateTask) => {
+  const updateTask = (id: string, updatedTask: Task) => {
     console.log(
       "Updating Task",
       tasks.filter((task) => task.id == id),
@@ -74,61 +59,14 @@ const useTasks = () => {
                 notes: updatedTask.notes ?? task.notes,
                 status: updatedTask.status ?? task.status,
                 priority: updatedTask.priority ?? task.priority,
-                sub_tasks: updatedTask.sub_tasks ?? task.sub_tasks,
+                sub_tasks:
+                  updatedTask.sub_tasks?.length == 0
+                    ? task.sub_tasks
+                    : updatedTask.sub_tasks,
                 due_date: updatedTask.due_date ?? task.due_date,
               }
             : task,
         ) || [],
-    );
-  };
-
-  const addSubTask = (taskID: string, subTask: SubTask) => {
-    console.log("Adding Sub Task", subTask);
-    setTasks(
-      tasks.map((task) =>
-        task.id == taskID
-          ? { ...task, sub_tasks: [...(task.sub_tasks || []), subTask] }
-          : task,
-      ),
-    );
-  };
-
-  const deleteSubTask = (taskID: string, subTaskID: string) => {
-    console.log("Deleting Sub Task", subTaskID);
-    setTasks(
-      tasks.map((task) =>
-        task.id == taskID
-          ? {
-              ...task,
-              sub_tasks:
-                task.sub_tasks?.filter((subTask) => subTask.id != subTaskID) ||
-                [],
-            }
-          : task,
-      ),
-    );
-  };
-
-  const updateSubTask = (
-    taskID: string,
-    subTaskID: string,
-    updatedSubTask: SubTask,
-  ) => {
-    console.log("Updating Sub Task", updatedSubTask);
-    setTasks(
-      tasks.map((task) =>
-        task.id == taskID
-          ? {
-              ...task,
-              sub_tasks:
-                task.sub_tasks?.map((subTask) =>
-                  subTask.id == subTaskID
-                    ? { ...subTask, ...updatedSubTask }
-                    : subTask,
-                ) || [],
-            }
-          : task,
-      ),
     );
   };
 
@@ -146,15 +84,11 @@ const useTasks = () => {
     tasks,
     setTasks,
     createBaseTask,
-    createUpdateTask,
     createBaseSubTask,
     setDefaultTasks,
     addTask,
     updateTask,
     deleteTask,
-    addSubTask,
-    deleteSubTask,
-    updateSubTask,
   };
 };
 

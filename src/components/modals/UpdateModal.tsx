@@ -7,13 +7,12 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import type { PickerValue } from "@mui/x-date-pickers/internals";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import type { ChangeEvent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useModal from "../../hooks/useModal";
 import { useTasksContext } from "../../hooks/useTaskContext";
-import type { SubTask, Task, UpdateTask } from "../../types/task";
+import type { Task } from "../../types/task";
 import { PRIORITIES, STATUSES } from "../../types/task";
 import dayjs from "../../utils/dayjs";
 import Dropdown from "../fields/Dropdown";
@@ -31,24 +30,23 @@ const UpdateModal = ({
   onUpdate,
   onClose,
 }: UpdateModalProps) => {
-  const { updateTask, createUpdateTask, createBaseSubTask } = useTasksContext();
-  const [task, setTask] = useState<UpdateTask>(createUpdateTask());
-  const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask());
+  const { updateTask, createBaseTask, createBaseSubTask } = useTasksContext();
+  const {
+    baseTask,
+    setBaseTask,
+    baseSubTask,
+    handleChange,
+    handleAddNewSubTask,
+    handleChangeNewSubTask,
+    handleChangeExistingSubTask,
+    handleDeleteExistingSubTask,
+  } = useModal({ createBaseTask, createBaseSubTask });
 
   useEffect(() => {
     if (!open) return;
-
-    if (selected.length == 1) {
-      setTask({
-        notes: selected[0].notes,
-        status: selected[0].status,
-        priority: selected[0].priority,
-        sub_tasks: selected[0].sub_tasks,
-        due_date: selected[0].due_date,
-      });
-    } else {
-      setTask(createUpdateTask());
-    }
+    return selected.length == 1
+      ? setBaseTask(selected[0])
+      : setBaseTask(createBaseTask());
   }, [open, selected]);
 
   const buttonStyle = {
@@ -57,82 +55,15 @@ const UpdateModal = ({
     padding: "6px",
   };
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
-    fieldName?: string,
-  ) => {
-    if (fieldName == "due_date") {
-      const newDueDate = e as PickerValue;
-      setTask({ ...task, ["due_date"]: newDueDate?.utc(true).toDate() });
-      return;
-    }
-
-    const { name, value } = (
-      e as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ).target;
-    if (name == "priority") {
-      setTask({
-        ...task,
-        [name]:
-          PRIORITIES.find((priority) => priority.value == value) ||
-          PRIORITIES[0],
-      });
-    } else if (name == "status") {
-      setTask({
-        ...task,
-        [name]: STATUSES.find((status) => status.value == value) || STATUSES[0],
-      });
-    } else {
-      setTask({ ...task, [name]: value });
-    }
-  };
-
   const handleUpdateTasks = () => {
-    console.log(task);
-    selected.forEach((currentTask) => updateTask(currentTask.id, task));
+    selected.forEach((currentTask) => updateTask(currentTask.id, baseTask));
+    setBaseTask(createBaseTask());
     onUpdate();
     onClose();
   };
 
-  const handleChangeSubTask = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setSubTask({ ...subTask, [name]: value });
-  };
-
-  const handleChangeExistingSubTask = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    subTaskID: string,
-  ) => {
-    const { value } = e.target;
-    setTask({
-      ...task,
-      sub_tasks:
-        task.sub_tasks?.map((st) =>
-          st.id == subTaskID ? { ...st, title: value } : st,
-        ) || [],
-    });
-  };
-
-  const handleDeleteExistingSubTask = (subTaskID: string) => {
-    setTask({
-      ...task,
-      sub_tasks: task.sub_tasks?.filter((st) => st.id != subTaskID) || [],
-    });
-  };
-
-  const handleAddSubTask = () => {
-    if (!subTask || !subTask.title) {
-      return;
-    }
-
-    setTask({ ...task, sub_tasks: [...(task.sub_tasks || []), subTask] });
-    setSubTask(createBaseSubTask());
-  };
-
   const handleClose = () => {
-    setTask(createUpdateTask());
+    setBaseTask(createBaseTask());
     onClose();
   };
 
@@ -166,7 +97,7 @@ const UpdateModal = ({
               className="w-full"
               label="Notes"
               name="notes"
-              value={task.notes}
+              value={baseTask.notes}
               onChange={(e) => handleChange(e)}
             />
           </Box>
@@ -176,8 +107,8 @@ const UpdateModal = ({
               label={"Status"}
               name={"status"}
               options={STATUSES}
-              defaultValue={selected.length == 1 ? task.status?.value : ""}
-              value={task.status?.value ?? ""}
+              defaultValue={selected.length == 1 ? baseTask.status?.value : ""}
+              value={baseTask.status?.value ?? ""}
               onChange={(e) => handleChange(e)}
             />
           </Box>
@@ -187,16 +118,18 @@ const UpdateModal = ({
               label={"Priority"}
               name={"priority"}
               options={PRIORITIES}
-              defaultValue={selected.length == 1 ? task.priority?.value : ""}
-              value={task.priority?.value ?? ""}
+              defaultValue={
+                selected.length == 1 ? baseTask.priority?.value : ""
+              }
+              value={baseTask.priority?.value ?? ""}
               onChange={(e) => handleChange(e)}
             />
           </Box>
 
           {selected.length == 1 && (
             <Box className="m-2 flex flex-col">
-              {task.sub_tasks &&
-                task.sub_tasks.map((subTask, index) => (
+              {baseTask.sub_tasks &&
+                baseTask.sub_tasks.map((subTask, index) => (
                   <Box key={subTask.id} className="flex items-end gap-5 mb-2">
                     <TextField
                       className="grow"
@@ -227,15 +160,16 @@ const UpdateModal = ({
                   variant="standard"
                   label="New Sub Task (Optional)"
                   name="title"
-                  value={subTask.title}
-                  onChange={(e) => handleChangeSubTask(e)}
+                  value={baseSubTask.title}
+                  onChange={(e) => handleChangeNewSubTask(e)}
                 />
 
                 <Button
+                  disabled={!baseSubTask.title}
                   variant="contained"
                   color="primary"
                   sx={buttonStyle}
-                  onClick={() => handleAddSubTask()}
+                  onClick={() => handleAddNewSubTask()}
                 >
                   <Add fontSize="medium" />
                 </Button>
@@ -251,7 +185,7 @@ const UpdateModal = ({
               <DemoContainer components={["DatePicker", "DatePicker"]}>
                 <DatePicker
                   className="grow"
-                  value={task.due_date ? dayjs(task.due_date) : null}
+                  value={baseTask.due_date ? dayjs(baseTask.due_date) : null}
                   label="Due Date"
                   onChange={(e) => handleChange(e, "due_date")}
                 />

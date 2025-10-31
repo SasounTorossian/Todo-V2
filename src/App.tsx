@@ -4,8 +4,6 @@ import MainLayout from "./layouts/MainLayout";
 import "./utils/dayjs";
 
 // TODO: Clean up fully
-// * Modal hooks
-// * Dropdown Component
 // * Speed up?
 
 const App = () => {

@@ -4,8 +4,8 @@ export type Task = {
   id: string;
   title: string;
   notes?: string;
-  status: Status;
-  priority: Priority;
+  status?: Status;
+  priority?: Priority;
   sub_tasks?: SubTask[];
   created_at: Date;
   due_date?: Date;
@@ -14,14 +14,6 @@ export type Task = {
 export type SubTask = {
   id: string;
   title: string;
-};
-
-export type UpdateTask = {
-  notes?: string;
-  status?: Status;
-  sub_tasks?: SubTask[];
-  priority?: Priority;
-  due_date?: Date;
 };
 
 export type Status = {

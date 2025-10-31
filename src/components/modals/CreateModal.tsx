@@ -7,13 +7,10 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import type { PickerValue } from "@mui/x-date-pickers/internals";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import type { ChangeEvent } from "react";
-import { useState } from "react";
+import useModal from "../../hooks/useModal";
 import { useTasksContext } from "../../hooks/useTaskContext";
-import type { SubTask, Task } from "../../types/task";
 import { PRIORITIES, STATUSES } from "../../types/task";
 import Dropdown from "../fields/Dropdown";
 
@@ -25,8 +22,16 @@ interface CreateModalProps {
 
 const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
   const { addTask, createBaseTask, createBaseSubTask } = useTasksContext();
-  const [task, setTask] = useState<Task>(createBaseTask());
-  const [subTask, setSubTask] = useState<SubTask>(createBaseSubTask());
+  const {
+    baseTask,
+    setBaseTask,
+    baseSubTask,
+    handleChange,
+    handleAddNewSubTask,
+    handleChangeNewSubTask,
+    handleChangeExistingSubTask,
+    handleDeleteExistingSubTask,
+  } = useModal({ createBaseTask, createBaseSubTask });
 
   const buttonStyle = {
     maxHeight: "36px",
@@ -34,84 +39,15 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
     padding: "6px",
   };
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | PickerValue,
-    fieldName?: string,
-  ) => {
-    console.log(task);
-    if (fieldName == "due_date") {
-      const newDueDate = e as PickerValue;
-      console.log(newDueDate);
-      setTask({ ...task, ["due_date"]: newDueDate?.utc(true).toDate() });
-      return;
-    }
-
-    const { name, value } = (
-      e as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ).target;
-    if (name == "priority") {
-      setTask({
-        ...task,
-        [name]:
-          PRIORITIES.find((priority) => priority.value == value) ||
-          PRIORITIES[0],
-      });
-    } else if (name == "status") {
-      setTask({
-        ...task,
-        [name]: STATUSES.find((status) => status.value == value) || STATUSES[0],
-      });
-    } else {
-      setTask({ ...task, [name]: value });
-    }
-  };
-
-  const handleChangeSubTask = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setSubTask({ ...subTask, [name]: value });
-  };
-
-  const handleChangeExistingSubTask = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    subTaskID: string,
-  ) => {
-    const { value } = e.target;
-    setTask({
-      ...task,
-      sub_tasks:
-        task.sub_tasks?.map((st) =>
-          st.id == subTaskID ? { ...st, title: value } : st,
-        ) || [],
-    });
-  };
-
-  const handleDeleteExistingSubTask = (subTaskID: string) => {
-    setTask({
-      ...task,
-      sub_tasks: task.sub_tasks?.filter((st) => st.id != subTaskID) || [],
-    });
-  };
-
   const handleAddTask = () => {
-    addTask(task);
-    setTask(createBaseTask());
+    addTask(baseTask);
+    setBaseTask(createBaseTask());
     onAdd();
     onClose();
   };
 
-  const handleAddSubTask = () => {
-    if (!subTask || !subTask.title) {
-      return;
-    }
-
-    setTask({ ...task, sub_tasks: [...(task.sub_tasks || []), subTask] });
-    setSubTask(createBaseSubTask());
-  };
-
   const handleClose = () => {
-    setTask(createBaseTask());
+    setBaseTask(createBaseTask());
     onClose();
   };
 
@@ -142,7 +78,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
               className="w-full"
               label="Title"
               name="title"
-              value={task.title}
+              value={baseTask.title}
               onChange={(e) => handleChange(e)}
             />
           </Box>
@@ -155,7 +91,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
               className="w-full"
               label="Notes (Optional)"
               name="notes"
-              value={task.notes}
+              value={baseTask.notes}
               onChange={(e) => handleChange(e)}
             />
           </Box>
@@ -182,23 +118,25 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
             />
           </Box>
 
-          {task.sub_tasks &&
-            task.sub_tasks.map((subTask, index) => (
-              <Box key={subTask.id} className=" m-2 flex items-end gap-5">
+          {baseTask.sub_tasks &&
+            baseTask.sub_tasks.map((baseSubTask, index) => (
+              <Box key={baseSubTask.id} className=" m-2 flex items-end gap-5">
                 <TextField
                   className="grow"
                   variant="standard"
                   label={"Sub Task - " + (index + 1)}
-                  value={subTask.title}
+                  value={baseSubTask.title}
                   name="title"
-                  onChange={(e) => handleChangeExistingSubTask(e, subTask.id)}
+                  onChange={(e) =>
+                    handleChangeExistingSubTask(e, baseSubTask.id)
+                  }
                 />
 
                 <Button
                   variant="contained"
                   color="error"
                   sx={buttonStyle}
-                  onClick={() => handleDeleteExistingSubTask(subTask.id)}
+                  onClick={() => handleDeleteExistingSubTask(baseSubTask.id)}
                 >
                   <Delete />
                 </Button>
@@ -212,15 +150,15 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
                 variant="standard"
                 label="New Sub Task (Optional)"
                 name="title"
-                value={subTask.title}
-                onChange={(e) => handleChangeSubTask(e)}
+                value={baseSubTask.title}
+                onChange={(e) => handleChangeNewSubTask(e)}
               />
 
               <Button
-                disabled={!subTask.title}
+                disabled={!baseSubTask.title}
                 className=""
                 variant="contained"
-                onClick={() => handleAddSubTask()}
+                onClick={() => handleAddNewSubTask()}
                 sx={buttonStyle}
               >
                 <Add />
@@ -246,9 +184,9 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
           <Box className="m-2 my-3 flex">
             <Button
               disabled={
-                !task.title ||
-                Object.keys(task.status).length == 0 ||
-                Object.keys(task.priority).length == 0
+                !baseTask.title ||
+                !baseTask?.status?.value ||
+                !baseTask.priority?.value
               }
               className="grow"
               variant="contained"
