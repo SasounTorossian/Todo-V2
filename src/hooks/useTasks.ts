@@ -56,13 +56,12 @@ const useTasks = () => {
           task.id == id
             ? {
                 ...task,
-                notes: updatedTask.notes ?? task.notes,
+                notes: updatedTask.notes ? updatedTask.notes : task.notes,
                 status: updatedTask.status ?? task.status,
                 priority: updatedTask.priority ?? task.priority,
-                sub_tasks:
-                  updatedTask.sub_tasks?.length == 0
-                    ? task.sub_tasks
-                    : updatedTask.sub_tasks,
+                sub_tasks: updatedTask.sub_tasks?.length
+                  ? updatedTask.sub_tasks
+                  : task.sub_tasks,
                 due_date: updatedTask.due_date ?? task.due_date,
               }
             : task,

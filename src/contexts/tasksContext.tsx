@@ -5,7 +5,7 @@ import useTasks from "../hooks/useTasks";
 export const TasksProvider = ({ children }: { children: ReactNode }) => {
   const taskHook = useTasks();
 
-  // FIXME: Only for testing
+  // NOTE: Only for testing
   useEffect(() => {
     taskHook.setDefaultTasks();
   }, []);
