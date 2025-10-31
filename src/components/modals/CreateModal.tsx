@@ -295,6 +295,7 @@ const CreateModal = ({ open, onAdd, onClose }: CreateModalProps) => {
             >
               <DemoContainer components={["DatePicker", "DatePicker"]}>
                 <DatePicker
+                  className="grow"
                   label="Due Date (Optional)"
                   onChange={(e) => handleChange(e, "due_date")}
                 />

@@ -285,6 +285,7 @@ const UpdateModal = ({
             >
               <DemoContainer components={["DatePicker", "DatePicker"]}>
                 <DatePicker
+                  className="grow"
                   value={task.due_date ? dayjs(task.due_date) : null}
                   label="Due Date"
                   onChange={(e) => handleChange(e, "due_date")}
