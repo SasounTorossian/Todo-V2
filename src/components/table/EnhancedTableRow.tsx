@@ -66,9 +66,9 @@ const EnhancedTableRow = ({
             <CircleIcon
               className="me-2"
               fontSize="small"
-              style={{ color: task.status.colour }}
+              style={{ color: task.status?.colour }}
             />
-            <Typography>{task.status.label}</Typography>
+            <Typography>{task.status?.label}</Typography>
           </Box>
         </TableCell>
         <TableCell align="right">
@@ -76,9 +76,9 @@ const EnhancedTableRow = ({
             <CircleIcon
               className="me-2"
               fontSize="small"
-              style={{ color: task.priority.colour }}
+              style={{ color: task.priority?.colour }}
             />
-            <Typography>{task.priority.label}</Typography>
+            <Typography>{task.priority?.label}</Typography>
           </Box>
         </TableCell>
         <TableCell align="right">

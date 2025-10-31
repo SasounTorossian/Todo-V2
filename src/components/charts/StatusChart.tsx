@@ -10,7 +10,7 @@ interface StatusChartProps {
 const StatusChart = ({ tasks }: StatusChartProps) => {
   const countStatus = (label: string) => {
     return tasks.reduce(
-      (acc, curr) => (curr.status.label == label ? (acc += 1) : acc),
+      (acc, curr) => (curr.status?.label == label ? (acc += 1) : acc),
       0,
     );
   };

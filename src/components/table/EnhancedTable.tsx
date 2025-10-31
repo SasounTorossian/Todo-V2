@@ -6,7 +6,7 @@ import { useState } from "react";
 import useSnackbar from "../../hooks/useSnackbar";
 import useTable from "../../hooks/useTable";
 import { useTasksContext } from "../../hooks/useTaskContext";
-import { successMessage } from "../../utils/message";
+import { snackbarSuccess } from "../../utils/message";
 import CreateModal from "../modals/CreateModal";
 import DeleteModal from "../modals/DeleteModal";
 import UpdateModal from "../modals/UpdateModal";
@@ -24,17 +24,17 @@ const EnhancedTable = () => {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
   const onAdd = () => {
-    showSnackbar(successMessage("Created", selected));
+    showSnackbar(snackbarSuccess("Created", selected));
     setSelected([]);
   };
 
   const onDelete = () => {
-    showSnackbar(successMessage("Deleted", selected));
+    showSnackbar(snackbarSuccess("Deleted", selected));
     setSelected([]);
   };
 
   const onUpdate = () => {
-    showSnackbar(successMessage("Updated", selected));
+    showSnackbar(snackbarSuccess("Updated", selected));
     setSelected([]);
   };
 

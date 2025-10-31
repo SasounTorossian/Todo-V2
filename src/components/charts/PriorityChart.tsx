@@ -10,7 +10,7 @@ interface PriorityChartProps {
 const PriorityChart = ({ tasks }: PriorityChartProps) => {
   const countPriority = (label: string) => {
     return tasks.reduce(
-      (acc, curr) => (curr.priority.label == label ? (acc += 1) : acc),
+      (acc, curr) => (curr.priority?.label == label ? (acc += 1) : acc),
       0,
     );
   };
