@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material";
 import ChartContainer from "../components/charts/ChartContainer";
 import Footer from "../components/footer/Footer";
+import Header from "../components/header/Header";
 import EnhancedTable from "../components/table/EnhancedTable";
 import { useTasksContext } from "../hooks/useTaskContext";
 
@@ -13,10 +14,10 @@ const MainLayout = () => {
       className="flex flex-col justify-between gap-3 h-screen overflow-hidden"
     >
       <Box className="flex flex-col gap-3 mt-3 overflow-hidden">
+        <Header />
         <ChartContainer tasks={tasks} />
         <EnhancedTable />
       </Box>
-
       <Footer />
     </Container>
   );
