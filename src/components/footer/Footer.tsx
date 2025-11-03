@@ -1,4 +1,6 @@
 import { Box, Link, Paper, Typography } from "@mui/material";
+import githubDark from "../../assets/github-dark.png";
+import githubLight from "../../assets/github-light.png";
 import { useThemeContext } from "../../hooks/useThemeContext";
 
 const Footer = () => {
@@ -18,11 +20,7 @@ const Footer = () => {
             "&:hover": { transform: "scale(1.1)" },
           }}
           alt="Github Logo"
-          src={
-            mode == "light"
-              ? "../../../src/assets/github-light.png"
-              : "../../../src/assets/github-dark.png"
-          }
+          src={mode === "light" ? githubLight : githubDark}
         />
       </Link>
     </Paper>
